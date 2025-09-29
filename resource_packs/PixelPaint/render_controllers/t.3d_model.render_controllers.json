@@ -1,0 +1,373 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.crtrlabs_print.3d_model.color_1": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 1",
+          "1": "v.c_1_color == 1",
+          "2": "v.c_2_color == 1",
+          "3": "v.c_3_color == 1",
+          "4": "v.c_4_color == 1",
+          "5": "v.c_5_color == 1",
+          "6": "v.c_6_color == 1",
+          "7": "v.c_7_color == 1"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_1"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_2": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 2",
+          "1": "v.c_1_color == 2",
+          "2": "v.c_2_color == 2",
+          "3": "v.c_3_color == 2",
+          "4": "v.c_4_color == 2",
+          "5": "v.c_5_color == 2",
+          "6": "v.c_6_color == 2",
+          "7": "v.c_7_color == 2"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_2"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_3": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 3",
+          "1": "v.c_1_color == 3",
+          "2": "v.c_2_color == 3",
+          "3": "v.c_3_color == 3",
+          "4": "v.c_4_color == 3",
+          "5": "v.c_5_color == 3",
+          "6": "v.c_6_color == 3",
+          "7": "v.c_7_color == 3"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_3"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_4": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 4",
+          "1": "v.c_1_color == 4",
+          "2": "v.c_2_color == 4",
+          "3": "v.c_3_color == 4",
+          "4": "v.c_4_color == 4",
+          "5": "v.c_5_color == 4",
+          "6": "v.c_6_color == 4",
+          "7": "v.c_7_color == 4"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_4"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_5": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 5",
+          "1": "v.c_1_color == 5",
+          "2": "v.c_2_color == 5",
+          "3": "v.c_3_color == 5",
+          "4": "v.c_4_color == 5",
+          "5": "v.c_5_color == 5",
+          "6": "v.c_6_color == 5",
+          "7": "v.c_7_color == 5"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_5"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_6": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 6",
+          "1": "v.c_1_color == 6",
+          "2": "v.c_2_color == 6",
+          "3": "v.c_3_color == 6",
+          "4": "v.c_4_color == 6",
+          "5": "v.c_5_color == 6",
+          "6": "v.c_6_color == 6",
+          "7": "v.c_7_color == 6"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_6"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_7": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 7",
+          "1": "v.c_1_color == 7",
+          "2": "v.c_2_color == 7",
+          "3": "v.c_3_color == 7",
+          "4": "v.c_4_color == 7",
+          "5": "v.c_5_color == 7",
+          "6": "v.c_6_color == 7",
+          "7": "v.c_7_color == 7"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_7"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_8": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 8",
+          "1": "v.c_1_color == 8",
+          "2": "v.c_2_color == 8",
+          "3": "v.c_3_color == 8",
+          "4": "v.c_4_color == 8",
+          "5": "v.c_5_color == 8",
+          "6": "v.c_6_color == 8",
+          "7": "v.c_7_color == 8"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_8"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_9": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 9",
+          "1": "v.c_1_color == 9",
+          "2": "v.c_2_color == 9",
+          "3": "v.c_3_color == 9",
+          "4": "v.c_4_color == 9",
+          "5": "v.c_5_color == 9",
+          "6": "v.c_6_color == 9",
+          "7": "v.c_7_color == 9"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_9"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_10": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 10",
+          "1": "v.c_1_color == 10",
+          "2": "v.c_2_color == 10",
+          "3": "v.c_3_color == 10",
+          "4": "v.c_4_color == 10",
+          "5": "v.c_5_color == 10",
+          "6": "v.c_6_color == 10",
+          "7": "v.c_7_color == 10"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_10"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_11": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 11",
+          "1": "v.c_1_color == 11",
+          "2": "v.c_2_color == 11",
+          "3": "v.c_3_color == 11",
+          "4": "v.c_4_color == 11",
+          "5": "v.c_5_color == 11",
+          "6": "v.c_6_color == 11",
+          "7": "v.c_7_color == 11"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_11"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_12": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 12",
+          "1": "v.c_1_color == 12",
+          "2": "v.c_2_color == 12",
+          "3": "v.c_3_color == 12",
+          "4": "v.c_4_color == 12",
+          "5": "v.c_5_color == 12",
+          "6": "v.c_6_color == 12",
+          "7": "v.c_7_color == 12"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_12"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_13": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 13",
+          "1": "v.c_1_color == 13",
+          "2": "v.c_2_color == 13",
+          "3": "v.c_3_color == 13",
+          "4": "v.c_4_color == 13",
+          "5": "v.c_5_color == 13",
+          "6": "v.c_6_color == 13",
+          "7": "v.c_7_color == 13"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_13"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_14": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 14",
+          "1": "v.c_1_color == 14",
+          "2": "v.c_2_color == 14",
+          "3": "v.c_3_color == 14",
+          "4": "v.c_4_color == 14",
+          "5": "v.c_5_color == 14",
+          "6": "v.c_6_color == 14",
+          "7": "v.c_7_color == 14"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_14"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_15": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 15",
+          "1": "v.c_1_color == 15",
+          "2": "v.c_2_color == 15",
+          "3": "v.c_3_color == 15",
+          "4": "v.c_4_color == 15",
+          "5": "v.c_5_color == 15",
+          "6": "v.c_6_color == 15",
+          "7": "v.c_7_color == 15"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_15"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    },
+    "controller.render.crtrlabs_print.3d_model.color_16": {
+      "part_visibility": [
+        {
+          "0": "v.c_0_color == 16",
+          "1": "v.c_1_color == 16",
+          "2": "v.c_2_color == 16",
+          "3": "v.c_3_color == 16",
+          "4": "v.c_4_color == 16",
+          "5": "v.c_5_color == 16",
+          "6": "v.c_6_color == 16",
+          "7": "v.c_7_color == 16"
+        }
+      ],
+      "geometry": "Geometry.default",
+      "textures": [
+        "Texture.color_16"
+      ],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ]
+    }
+  }
+}

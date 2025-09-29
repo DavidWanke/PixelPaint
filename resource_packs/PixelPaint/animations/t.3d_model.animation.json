@@ -1,0 +1,106 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.crtrlabs_print.3d_model.adjust_cubes": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"0": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_0_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_0_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_0_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_0_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_0_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_0_data') / 1419857), 17)"
+					]
+				},
+				"1": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_1_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_1_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_1_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_1_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_1_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_1_data') / 1419857), 17)"
+					]
+				},
+				"2": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_2_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_2_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_2_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_2_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_2_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_2_data') / 1419857), 17)"
+					]
+				},
+				"3": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_3_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_3_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_3_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_3_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_3_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_3_data') / 1419857), 17)"
+					]
+				},
+				"4": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_4_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_4_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_4_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_4_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_4_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_4_data') / 1419857), 17)"
+					]
+				},
+				"5": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_5_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_5_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_5_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_5_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_5_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_5_data') / 1419857), 17)"
+					]
+				},
+				"6": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_6_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_6_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_6_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_6_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_6_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_6_data') / 1419857), 17)"
+					]
+				},
+				"7": {
+					"position": [
+						"math.mod(q.property('crtrlabs_print:cube_7_data'), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_7_data') / 17), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_7_data') / 289), 17)"
+					],
+					"scale": [
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_7_data') / 4913), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_7_data') / 83521), 17)",
+						"math.mod(math.floor(q.property('crtrlabs_print:cube_7_data') / 1419857), 17)"
+					]
+				}
+			}
+		}
+	}
+}

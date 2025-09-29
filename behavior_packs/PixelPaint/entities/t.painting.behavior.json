@@ -1,0 +1,283 @@
+{
+  "format_version": "1.18.10",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "crtrlabs_paint:painting",
+      "is_summonable": true,
+      "is_spawnable": true,
+      "is_experimental": false,
+      "properties": {
+        "crtrlabs_paint:palette_count": {
+          "type": "int",
+          "default": 2,
+          "range": [
+            1,
+            16
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp0": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp1": {
+          "type": "int",
+          "default": 78300,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp2": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp3": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp4": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp5": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp6": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp7": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp8": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp9": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp10": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp11": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp12": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp13": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp14": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:tp15": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f0": {
+          "type": "int",
+          "default": 1052688,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f1": {
+          "type": "int",
+          "default": 65808,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f2": {
+          "type": "int",
+          "default": 1048833,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f3": {
+          "type": "int",
+          "default": 1052688,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f4": {
+          "type": "int",
+          "default": 65793,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f5": {
+          "type": "int",
+          "default": 1052673,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f6": {
+          "type": "int",
+          "default": 69648,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f7": {
+          "type": "int",
+          "default": 65793,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f8": {
+          "type": "int",
+          "default": 1052688,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f9": {
+          "type": "int",
+          "default": 65808,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:leaf_idx_f10": {
+          "type": "int",
+          "default": 257,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:breathable": {
+        "breathes_water": true
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:collision_box": {
+        "width": 0,
+        "height": 0
+      }
+    },
+    "events": {}
+  }
+}

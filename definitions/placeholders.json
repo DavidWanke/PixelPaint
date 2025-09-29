@@ -1,0 +1,29 @@
+{
+  "NAMESPACE": "crtrlabs_paint",
+  "PROPERTY": {
+    
+  },
+  "ENUM": {
+  },
+  "EVENT": {
+
+    
+  },
+  "S_EVENT": {
+
+  },
+  "TEXT": {
+  },
+  "FAMILY": {
+  },
+  "ITEM": {
+  },
+  "ITEM_COMPONENT": {
+  },
+  "ENTITY": {
+    "PAINTING": "painting"
+
+  },
+  "PARTICLE": {
+  }
+}

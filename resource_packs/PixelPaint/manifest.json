@@ -1,0 +1,28 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "pack.description",
+    "name": "pack.name",
+    "uuid": "86adee91-62f9-4dfc-9dcb-afc0394e205b",
+    "pack_scope": "world",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 43]
+  },
+  "modules": [
+    {
+      "description": "Pixel Paint Resources",
+      "type": "resources",
+      "uuid": "80ee392c-e1e5-49c7-94ba-a0d5c154a0aa",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "b3c271ec-89db-409c-a6a5-bbff1ce76ced",
+      "version": [1, 0, 0]
+    }
+  ],
+  "metadata": {
+    "product_type": "addon"
+  }
+}
