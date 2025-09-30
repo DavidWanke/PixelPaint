@@ -10,6 +10,8 @@
     
   },
   "S_EVENT": {
+    "CHANGE_PAINTING_CHECKERBOARD": "change_painting_checkerboard",
+    "CHANGE_PAINTING_GRADIENT": "change_painting_gradient"
 
   },
   "TEXT": {
@@ -21,7 +23,8 @@
   "ITEM_COMPONENT": {
   },
   "ENTITY": {
-    "PAINTING": "painting"
+    "PAINTING": "painting",
+    "PAINTING_ROT": "painting_rot"
 
   },
   "PARTICLE": {

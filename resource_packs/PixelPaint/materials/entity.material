@@ -1,7 +1,7 @@
 {
   "materials": {
     "version": "1.0.0",
-    "crtrlabs_paint_uv_offset:entity": {
+    "crtrlabs_paint_uv_offset:entity_alphatest": {
       "+defines": ["USE_UV_ANIM"]
     }
   }

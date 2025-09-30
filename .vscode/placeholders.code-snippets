@@ -1,7 +1,22 @@
 {
+  "S_EVENT(CHANGE_PAINTING_CHECKERBOARD)": {
+    "prefix": "S_EVENT(CHANGE_PAINTING_CHECKERBOARD)",
+    "body": "S_EVENT(CHANGE_PAINTING_CHECKERBOARD)",
+    "description": "Insert S_EVENT(CHANGE_PAINTING_CHECKERBOARD)"
+  },
+  "S_EVENT(CHANGE_PAINTING_GRADIENT)": {
+    "prefix": "S_EVENT(CHANGE_PAINTING_GRADIENT)",
+    "body": "S_EVENT(CHANGE_PAINTING_GRADIENT)",
+    "description": "Insert S_EVENT(CHANGE_PAINTING_GRADIENT)"
+  },
   "ENTITY(PAINTING)": {
     "prefix": "ENTITY(PAINTING)",
     "body": "ENTITY(PAINTING)",
     "description": "Insert ENTITY(PAINTING)"
+  },
+  "ENTITY(PAINTING_ROT)": {
+    "prefix": "ENTITY(PAINTING_ROT)",
+    "body": "ENTITY(PAINTING_ROT)",
+    "description": "Insert ENTITY(PAINTING_ROT)"
   }
 }

@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const { createCanvas, loadImage } = require('canvas');
-const { encodeTileId, decodeTileId, getAtlasPosition, findTileId, MINECRAFT_COLORS, COLOR_NAMES } = require('./gen_tile_atlas.png.js');
+const { MINECRAFT_COLORS, COLOR_NAMES } = require('../constants.js');
+const { encodeTileId, decodeTileId, getAtlasPosition, findTileId } = require('./gen_tile_atlas.png.js');
 
 /**
  * Load the generated atlas image

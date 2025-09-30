@@ -1,0 +1,458 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.crtrlabs_paint.painting_rot.rotate": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"l0": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 1), 4)) * 90",
+						0
+					]
+				},
+				"l1": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 4), 4)) * 90",
+						0
+					]
+				},
+				"l2": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 16), 4)) * 90",
+						0
+					]
+				},
+				"l3": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 64), 4)) * 90",
+						0
+					]
+				},
+				"l4": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 256), 4)) * 90",
+						0
+					]
+				},
+				"l5": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 1024), 4)) * 90",
+						0
+					]
+				},
+				"l6": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 4096), 4)) * 90",
+						0
+					]
+				},
+				"l7": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 16384), 4)) * 90",
+						0
+					]
+				},
+				"l8": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 65536), 4)) * 90",
+						0
+					]
+				},
+				"l9": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 262144), 4)) * 90",
+						0
+					]
+				},
+				"l10": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 1048576), 4)) * 90",
+						0
+					]
+				},
+				"l11": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f0 / 4194304), 4)) * 90",
+						0
+					]
+				},
+				"l12": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 1), 4)) * 90",
+						0
+					]
+				},
+				"l13": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 4), 4)) * 90",
+						0
+					]
+				},
+				"l14": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 16), 4)) * 90",
+						0
+					]
+				},
+				"l15": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 64), 4)) * 90",
+						0
+					]
+				},
+				"l16": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 256), 4)) * 90",
+						0
+					]
+				},
+				"l17": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 1024), 4)) * 90",
+						0
+					]
+				},
+				"l18": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 4096), 4)) * 90",
+						0
+					]
+				},
+				"l19": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 16384), 4)) * 90",
+						0
+					]
+				},
+				"l20": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 65536), 4)) * 90",
+						0
+					]
+				},
+				"l21": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 262144), 4)) * 90",
+						0
+					]
+				},
+				"l22": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 1048576), 4)) * 90",
+						0
+					]
+				},
+				"l23": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f1 / 4194304), 4)) * 90",
+						0
+					]
+				},
+				"l24": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 1), 4)) * 90",
+						0
+					]
+				},
+				"l25": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 4), 4)) * 90",
+						0
+					]
+				},
+				"l26": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 16), 4)) * 90",
+						0
+					]
+				},
+				"l27": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 64), 4)) * 90",
+						0
+					]
+				},
+				"l28": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 256), 4)) * 90",
+						0
+					]
+				},
+				"l29": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 1024), 4)) * 90",
+						0
+					]
+				},
+				"l30": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 4096), 4)) * 90",
+						0
+					]
+				},
+				"l31": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 16384), 4)) * 90",
+						0
+					]
+				},
+				"l32": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 65536), 4)) * 90",
+						0
+					]
+				},
+				"l33": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 262144), 4)) * 90",
+						0
+					]
+				},
+				"l34": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 1048576), 4)) * 90",
+						0
+					]
+				},
+				"l35": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f2 / 4194304), 4)) * 90",
+						0
+					]
+				},
+				"l36": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 1), 4)) * 90",
+						0
+					]
+				},
+				"l37": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 4), 4)) * 90",
+						0
+					]
+				},
+				"l38": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 16), 4)) * 90",
+						0
+					]
+				},
+				"l39": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 64), 4)) * 90",
+						0
+					]
+				},
+				"l40": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 256), 4)) * 90",
+						0
+					]
+				},
+				"l41": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 1024), 4)) * 90",
+						0
+					]
+				},
+				"l42": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 4096), 4)) * 90",
+						0
+					]
+				},
+				"l43": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 16384), 4)) * 90",
+						0
+					]
+				},
+				"l44": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 65536), 4)) * 90",
+						0
+					]
+				},
+				"l45": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 262144), 4)) * 90",
+						0
+					]
+				},
+				"l46": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 1048576), 4)) * 90",
+						0
+					]
+				},
+				"l47": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f3 / 4194304), 4)) * 90",
+						0
+					]
+				},
+				"l48": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 1), 4)) * 90",
+						0
+					]
+				},
+				"l49": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 4), 4)) * 90",
+						0
+					]
+				},
+				"l50": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 16), 4)) * 90",
+						0
+					]
+				},
+				"l51": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 64), 4)) * 90",
+						0
+					]
+				},
+				"l52": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 256), 4)) * 90",
+						0
+					]
+				},
+				"l53": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 1024), 4)) * 90",
+						0
+					]
+				},
+				"l54": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 4096), 4)) * 90",
+						0
+					]
+				},
+				"l55": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 16384), 4)) * 90",
+						0
+					]
+				},
+				"l56": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 65536), 4)) * 90",
+						0
+					]
+				},
+				"l57": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 262144), 4)) * 90",
+						0
+					]
+				},
+				"l58": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 1048576), 4)) * 90",
+						0
+					]
+				},
+				"l59": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f4 / 4194304), 4)) * 90",
+						0
+					]
+				},
+				"l60": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f5 / 1), 4)) * 90",
+						0
+					]
+				},
+				"l61": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f5 / 4), 4)) * 90",
+						0
+					]
+				},
+				"l62": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f5 / 16), 4)) * 90",
+						0
+					]
+				},
+				"l63": {
+					"rotation": [
+						0,
+						"math.floor(math.mod(math.floor(v.rot_f5 / 64), 4)) * 90",
+						0
+					]
+				}
+			}
+		}
+	}
+}

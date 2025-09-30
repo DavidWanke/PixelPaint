@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { NAMESPACE } = require('../constants.js');
-const { encodeTileId, MINECRAFT_COLORS, COLOR_NAMES } = require('./gen_tile_atlas.png.js');
+const { NAMESPACE, MINECRAFT_COLORS, COLOR_NAMES } = require('../constants.js');
+const { encodeTileId } = require('./gen_tile_atlas.png.js');
 
 /**
  * Build a palette of up to 16 most-frequent tileIds from leaf data
