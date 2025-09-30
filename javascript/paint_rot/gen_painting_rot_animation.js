@@ -37,6 +37,11 @@ function generatePaintingRotAnimation() {
 
     const bones = {};
 
+    // Add root bone with distance scale
+    bones["root"] = {
+        "scale": "v.distance_scale"
+    };
+
     // Generate rotation for all 64 leaves
     for (let leafId = 0; leafId < 64; leafId++) {
         const rotationExtraction = generateRotationExtraction(leafId);
@@ -60,8 +65,9 @@ function generatePaintingRotAnimation() {
         }
     };
 
-    console.log(`✅ Generated rotation animation for 64 leaves`);
-    console.log(`🔧 Each bone uses cached v.rot_f0-f5 variables (efficient!)`);
+    console.log(`✅ Generated rotation animation for root + 64 leaves`);
+    console.log(`📏 Root bone scales with v.distance_scale (fade 32-48 blocks)`);
+    console.log(`🔧 Each leaf bone uses cached v.rot_f0-f5 variables (efficient!)`);
 
     return animation;
 }

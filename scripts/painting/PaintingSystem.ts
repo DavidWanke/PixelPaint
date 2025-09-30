@@ -1,4 +1,4 @@
-import { Entity } from "@minecraft/server";
+import { Entity, world } from "@minecraft/server";
 import { EntitySystem, Loadable, Savable } from "../utils/EntitySystem";
 import { ATLAS_CACHE, AtlasCache } from "./canonical_atlas_cache";
 import { Palette, getPalette } from "./Palettes";
@@ -213,6 +213,12 @@ export class CorePaintingSystem extends EntitySystem {
         }
 
         // 3) Take top 15 by frequency
+
+        // if more than 15 send message
+        world.sendMessage(`Painting uses ${freq.size} unique tiles, displaying top 15 with LOD optimization.`);
+        if (freq.size > 15) {
+            world.sendMessage(`⚠️  Warning: Painting uses ${freq.size} unique tiles, but only 15 can be displayed!`);
+        }
         const sorted = [...freq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 15);
         const topCanonicalTileIds = sorted.map(([id]) => id);
         const used = topCanonicalTileIds.length;

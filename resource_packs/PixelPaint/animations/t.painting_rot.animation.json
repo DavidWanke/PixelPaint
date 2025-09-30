@@ -4,6 +4,9 @@
 		"animation.crtrlabs_paint.painting_rot.rotate": {
 			"loop": "hold_on_last_frame",
 			"bones": {
+				"root": {
+					"scale": "v.distance_scale"
+				},
 				"l0": {
 					"rotation": [
 						0,

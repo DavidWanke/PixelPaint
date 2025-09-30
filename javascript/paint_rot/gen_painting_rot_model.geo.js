@@ -22,9 +22,9 @@ function generatePaintingRotModelGeometry() {
                     "identifier": `geometry.${NAMESPACE}.painting_rot`,
                     "texture_width": 2,
                     "texture_height": 2,
-                    "visible_bounds_width": 1,
-                    "visible_bounds_height": 1,
-                    "visible_bounds_offset": [0, 0, 0]
+                    "visible_bounds_width": 2,
+                    "visible_bounds_height": 1.5,
+                    "visible_bounds_offset": [0, 0.25, 0]
                 },
                 "bones": [
                     {
@@ -49,44 +49,25 @@ function generatePaintingRotModelGeometry() {
         const worldZ = 6 - leafY * 2;
 
         // IMPORTANT: Pivot at CENTER of the 2×2 leaf for proper rotation
-        // Center is at worldX + 1, worldZ + 1 (middle of the 2×2 area)
+        // Center is at worldX + 1, worldZ - 1 (middle of the 2×2 area)
         const pivotX = worldX + 1;
         const pivotZ = worldZ + 1;
 
-        // Create bone for this leaf
+        // Create bone for this leaf with a single flat plane
         const leafBone = {
             "name": `l${leafId}`,
             "parent": "root",
             "pivot": [pivotX, 0, pivotZ],
-            "cubes": []
-        };
-
-        // Add 4 cubes for the 2×2 pixels in this leaf
-        // Cube origins are now relative to the centered pivot
-        // Original positions: worldX+0/1, worldZ+0/1
-        // Offset from center: -1 to 0 in both directions
-        const cubeOffsets = [
-            { x: -1, z: 0, name: "TL", uv: [0, 0], upDownUv: [1, 1] }, // Top-Left
-            { x: 0, z: 0, name: "TR", uv: [1, 0], upDownUv: [2, 1] },  // Top-Right
-            { x: -1, z: -1, name: "BL", uv: [0, 1], upDownUv: [1, 2] }, // Bottom-Left
-            { x: 0, z: -1, name: "BR", uv: [1, 1], upDownUv: [2, 2] }   // Bottom-Right
-        ];
-
-        cubeOffsets.forEach((offset, pixelIdx) => {
-            const cube = {
-                "origin": [pivotX + offset.x, 0, pivotZ + offset.z],
-                "size": [1, 1, 1],
-                "uv": {
-                    "north": {"uv": offset.uv, "uv_size": [1, 1]},
-                    "east": {"uv": offset.uv, "uv_size": [1, 1]},
-                    "south": {"uv": offset.uv, "uv_size": [1, 1]},
-                    "west": {"uv": offset.uv, "uv_size": [1, 1]},
-                    "up": {"uv": offset.upDownUv, "uv_size": [-1, -1]},
-                    "down": {"uv": offset.upDownUv, "uv_size": [-1, -1]}
+            "cubes": [
+                {
+                    "origin": [worldX, 0.1, worldZ],
+                    "size": [2, 0, 2],
+                    "uv": {
+                        "up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
+                    }
                 }
-            };
-            leafBone.cubes.push(cube);
-        });
+            ]
+        };
 
         bones.push(leafBone);
     }
@@ -116,8 +97,9 @@ function writeGeometryFile(outputPath = null) {
     // Write to file with pretty formatting
     fs.writeFileSync(outputPath, JSON.stringify(geometry, null, '\t'));
 
-    console.log(`✅ Generated painting_rot model with 64 leaves (256 cubes): ${outputPath}`);
+    console.log(`✅ Generated painting_rot model with 64 leaves (64 flat planes): ${outputPath}`);
     console.log(`🎯 Leaf pivots centered for rotation support`);
+    console.log(`📐 Using single 2x0x2 plane per leaf for optimal performance`);
 }
 
 // Export functions for use as module

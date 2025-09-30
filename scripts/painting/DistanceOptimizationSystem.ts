@@ -93,8 +93,8 @@ export class DistanceOptimizationSystem extends EntitySystem {
         lod1 = DistanceOptimizationSystem.upscaleRepeat(lod1, 16);
         this.lod1_rle = DistanceOptimizationSystem.encodeRLE(lod1);
 
-        // Generate LOD 2: Downscale to 4x4, upscale to 16x16 (4x4 blocks)
-        let lod2 = DistanceOptimizationSystem.downscaleMajority(grid, 4);
+        // Generate LOD 2: Downscale to 8x8, upscale to 16x16 (2x2 blocks), then quantize to 8 colors
+        let lod2 = DistanceOptimizationSystem.downscaleMajority(grid, 2);
         lod2 = DistanceOptimizationSystem.upscaleRepeat(lod2, 16);
         this.lod2_rle = DistanceOptimizationSystem.encodeRLE(lod2);
 

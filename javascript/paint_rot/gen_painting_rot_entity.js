@@ -65,13 +65,18 @@ function generatePaletteCountScript() {
 
 /**
  * Generate camera-facing detection script
- * Detects if the player camera is facing this entity
+ * Detects if the player camera is facing this entity using simple fixed angles
+ * Uses OR logic for permissive FOV detection
+ * Also checks distance (max 32 blocks)
+ * Calculates distance_scale: 0 at 48+ blocks, 1 at 32- blocks
  * @returns {string[]} Array of Molang statements to check if entity is facing camera
  */
 function generateCameraFacingScript() {
     return [
-        "v.yaw_diff = math.abs(query.rotation_to_camera(1) - query.camera_rotation(1));",
-        "v.is_facing_camera = v.yaw_diff > 90 && v.yaw_diff < 270;"
+        "v.yaw_diff = math.abs(math.abs(query.rotation_to_camera(1) - query.camera_rotation(1)) - 180);",
+        "v.pitch_diff = math.abs(math.abs(query.rotation_to_camera(0) - query.camera_rotation(0)) - 180);",
+        "v.distance_scale = math.clamp(1 - (query.distance_from_camera - 16) / 16, 0, 1);",
+        "v.is_facing_camera = (v.yaw_diff < 90 || v.pitch_diff < 90) && query.distance_from_camera < 32;"
     ];
 }
 
@@ -136,13 +141,13 @@ function generatePaintingRotEntity() {
         entity["minecraft:client_entity"].description.render_controllers.push(controller);
     }
 
-    console.log(`👁️  Added camera-facing detection (${cameraFacingScript.length} statements)`);
+    console.log(`👁️  Added camera-facing detection (${cameraFacingScript.length} statements - 90° FOV + distance scale 32-48 blocks)`);
     console.log(`🧮 Pre-calculated ${paletteIndexScript.length} leaf palette indices`);
     console.log(`💾 Cached ${rotationFloatCache.length} rotation float properties`);
     console.log(`📊 Extracted palette_count from v.rot_f5 (1 statement)`);
     console.log(`🎭 Added 15 conditional render controllers (gated by v.is_facing_camera && v.palette_count)`);
     console.log(`🔄 Added rotation animation reference`);
-    console.log(`✅ Total initialize statements: ${initializeScript.length}`);
+    console.log(`✅ Total pre-animation statements: ${initializeScript.length}`);
 
     return entity;
 }
