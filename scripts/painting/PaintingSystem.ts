@@ -1,39 +1,10 @@
 import { Entity } from "@minecraft/server";
 import { EntitySystem, Loadable, Savable } from "../utils/EntitySystem";
 import { ATLAS_CACHE, AtlasCache } from "./canonical_atlas_cache";
+import { Palette, getPalette } from "./Palettes";
 
 // Namespace for painting properties
 const NAMESPACE = "crtrlabs_paint";
-
-// Palette type - maps color indices to RGB values
-interface Palette {
-    colors: [number, number, number][];
-    name: string;
-}
-
-// Built-in Minecraft palette (16 dye colors + transparent)
-const MINECRAFT_PALETTE: Palette = {
-    name: "minecraft",
-    colors: [
-        [255, 255, 255], // 0: white
-        [249, 128, 29],  // 1: orange
-        [199, 78, 189],  // 2: magenta
-        [58, 179, 218],  // 3: light_blue
-        [254, 216, 61],  // 4: yellow
-        [128, 199, 31],  // 5: lime
-        [243, 139, 170], // 6: pink
-        [71, 71, 71],    // 7: gray
-        [157, 157, 151], // 8: light_gray
-        [22, 156, 156],  // 9: cyan
-        [100, 84, 50],   // 10: brown
-        [87, 132, 62],   // 11: green
-        [180, 51, 51],   // 12: red
-        [35, 37, 146],   // 13: blue
-        [131, 84, 50],   // 14: purple
-        [0, 0, 0],       // 15: black
-        [0, 0, 0]        // 16: transparent
-    ]
-};
 
 // Color names for reference
 enum ColorName {
@@ -58,7 +29,7 @@ interface PalettePack {
 }
 
 
-export class PaintingSystem extends EntitySystem {
+export class CorePaintingSystem extends EntitySystem {
 
     constructor(entity: Entity) {
         super(entity);
@@ -359,24 +330,56 @@ export class PaintingSystem extends EntitySystem {
         return grid;
     }
 
+    /**
+     * Generate an 8x8 test pattern (16x16 pixels divided into 4 quadrants)
+     * Each quadrant is 8x8 pixels with a distinct color
+     * Perfect for testing LOD downscaling
+     */
+    static generateTest8x8(): number[][] {
+        const grid: number[][] = [];
+
+        for (let y = 0; y < 16; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < 16; x++) {
+                let color: number;
+
+                if (y < 8 && x < 8) {
+                    color = ColorName.black;    // Top-left
+                } else if (y < 8 && x >= 8) {
+                    color = ColorName.purple;   // Top-right
+                } else if (y >= 8 && x < 8) {
+                    color = ColorName.red;      // Bottom-left
+                } else {
+                    color = ColorName.yellow;   // Bottom-right
+                }
+
+                row.push(color);
+            }
+            grid.push(row);
+        }
+
+        return grid;
+    }
+
     // ========== Main Image Setter ==========
 
     /**
      * Change the painting image by setting all 32 properties
      * @param colorGrid 16x16 grid of color indices (0-16)
-     * @param palette Optional palette for validation (default: MINECRAFT_PALETTE)
+     * @param paletteIndex Palette index to use (default: 0 = MINECRAFT_PALETTE)
      */
-    changeImage(colorGrid: number[][], palette: Palette = MINECRAFT_PALETTE): void {
+    changeImage(colorGrid: number[][], paletteIndex: number = 0): void {
+        const palette = getPalette(paletteIndex);
         // Validate grid dimensions
         if (colorGrid.length !== 16 || colorGrid.some(row => row.length !== 16)) {
             throw new Error("Color grid must be 16x16");
         }
 
         // Convert to leaves
-        const leaves = PaintingSystem.colorGridToLeaves(colorGrid);
+        const leaves = CorePaintingSystem.colorGridToLeaves(colorGrid);
 
         // Build palette with rotation optimization
-        const pack = PaintingSystem.buildPaletteWithRotation(leaves);
+        const pack = CorePaintingSystem.buildPaletteWithRotation(leaves);
 
         // Set palette properties (tp0-tp14)
         for (let i = 0; i < 15; i++) {

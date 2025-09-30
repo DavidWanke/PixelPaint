@@ -64,11 +64,26 @@ function generatePaletteCountScript() {
 }
 
 /**
+ * Generate camera-facing detection script
+ * Detects if the player camera is facing this entity
+ * @returns {string[]} Array of Molang statements to check if entity is facing camera
+ */
+function generateCameraFacingScript() {
+    return [
+        "v.yaw_diff = math.abs(query.rotation_to_camera(1) - query.camera_rotation(1));",
+        "v.is_facing_camera = v.yaw_diff > 90 && v.yaw_diff < 270;"
+    ];
+}
+
+/**
  * Generate the complete painting_rot entity JSON
  * @returns {object} Complete entity structure
  */
 function generatePaintingRotEntity() {
     console.log('🎨 Generating painting_rot entity with optimized palette indices...');
+
+    // Generate camera-facing detection (2 statements)
+    const cameraFacingScript = generateCameraFacingScript();
 
     // Generate pre-calculated palette indices for all 64 leaves
     const paletteIndexScript = generatePaletteIndexScript();
@@ -81,6 +96,7 @@ function generatePaintingRotEntity() {
 
     // Combine all initialize statements
     const initializeScript = [
+        ...cameraFacingScript,
         ...paletteIndexScript,
         ...rotationFloatCache,
         paletteCountScript
@@ -104,7 +120,7 @@ function generatePaintingRotEntity() {
                     "rotate": `animation.${NAMESPACE}.painting_rot.rotate`
                 },
                 "scripts": {
-                    "initialize": initializeScript,
+                    "pre_animation": initializeScript,
                     "animate": ["rotate"]
                 },
                 "render_controllers": []
@@ -112,18 +128,19 @@ function generatePaintingRotEntity() {
         }
     };
 
-    // Add conditional render controllers (only render active palette slots)
+    // Add conditional render controllers (only render active palette slots when facing camera)
     for (let i = 0; i < 15; i++) {
-        const condition = `v.palette_count > ${i}`;
+        const condition = `v.is_facing_camera && v.palette_count > ${i}`;
         const controller = {};
         controller[`controller.render.${NAMESPACE}.painting_rot.tile.${i}`] = condition;
         entity["minecraft:client_entity"].description.render_controllers.push(controller);
     }
 
+    console.log(`👁️  Added camera-facing detection (${cameraFacingScript.length} statements)`);
     console.log(`🧮 Pre-calculated ${paletteIndexScript.length} leaf palette indices`);
     console.log(`💾 Cached ${rotationFloatCache.length} rotation float properties`);
     console.log(`📊 Extracted palette_count from v.rot_f5 (1 statement)`);
-    console.log(`🎭 Added 15 conditional render controllers (gated by v.palette_count)`);
+    console.log(`🎭 Added 15 conditional render controllers (gated by v.is_facing_camera && v.palette_count)`);
     console.log(`🔄 Added rotation animation reference`);
     console.log(`✅ Total initialize statements: ${initializeScript.length}`);
 
@@ -153,7 +170,7 @@ function writeEntityFile(outputPath = null) {
 
     console.log(`🎯 Entity file saved: ${outputPath}`);
     console.log(`📝 Namespace: ${NAMESPACE}`);
-    console.log(`🧮 Optimized entity: ${entity["minecraft:client_entity"].description.scripts.initialize.length} initialize statements (64 palette + 6 rotation cache + 1 palette_count)`);
+    console.log(`🧮 Optimized entity: ${entity["minecraft:client_entity"].description.scripts.pre_animation.length} pre-animation statements (2 camera-facing + 64 palette + 6 rotation cache + 1 palette_count)`);
 }
 
 /**

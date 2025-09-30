@@ -16,7 +16,9 @@
         "rotate": "animation.crtrlabs_paint.painting_rot.rotate"
       },
       "scripts": {
-        "initialize": [
+        "pre_animation": [
+          "v.yaw_diff = math.abs(query.rotation_to_camera(1) - query.camera_rotation(1));",
+          "v.is_facing_camera = v.yaw_diff > 90 && v.yaw_diff < 270;",
           "v.leaf_palette_idx_0 = math.floor(math.mod(math.floor(query.property('crtrlabs_paint:leaf_idx_f0') / 1), 16));",
           "v.leaf_palette_idx_1 = math.floor(math.mod(math.floor(query.property('crtrlabs_paint:leaf_idx_f0') / 16), 16));",
           "v.leaf_palette_idx_2 = math.floor(math.mod(math.floor(query.property('crtrlabs_paint:leaf_idx_f0') / 256), 16));",
@@ -95,49 +97,49 @@
       },
       "render_controllers": [
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.0": "v.palette_count > 0"
+          "controller.render.crtrlabs_paint.painting_rot.tile.0": "v.is_facing_camera && v.palette_count > 0"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.1": "v.palette_count > 1"
+          "controller.render.crtrlabs_paint.painting_rot.tile.1": "v.is_facing_camera && v.palette_count > 1"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.2": "v.palette_count > 2"
+          "controller.render.crtrlabs_paint.painting_rot.tile.2": "v.is_facing_camera && v.palette_count > 2"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.3": "v.palette_count > 3"
+          "controller.render.crtrlabs_paint.painting_rot.tile.3": "v.is_facing_camera && v.palette_count > 3"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.4": "v.palette_count > 4"
+          "controller.render.crtrlabs_paint.painting_rot.tile.4": "v.is_facing_camera && v.palette_count > 4"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.5": "v.palette_count > 5"
+          "controller.render.crtrlabs_paint.painting_rot.tile.5": "v.is_facing_camera && v.palette_count > 5"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.6": "v.palette_count > 6"
+          "controller.render.crtrlabs_paint.painting_rot.tile.6": "v.is_facing_camera && v.palette_count > 6"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.7": "v.palette_count > 7"
+          "controller.render.crtrlabs_paint.painting_rot.tile.7": "v.is_facing_camera && v.palette_count > 7"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.8": "v.palette_count > 8"
+          "controller.render.crtrlabs_paint.painting_rot.tile.8": "v.is_facing_camera && v.palette_count > 8"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.9": "v.palette_count > 9"
+          "controller.render.crtrlabs_paint.painting_rot.tile.9": "v.is_facing_camera && v.palette_count > 9"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.10": "v.palette_count > 10"
+          "controller.render.crtrlabs_paint.painting_rot.tile.10": "v.is_facing_camera && v.palette_count > 10"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.11": "v.palette_count > 11"
+          "controller.render.crtrlabs_paint.painting_rot.tile.11": "v.is_facing_camera && v.palette_count > 11"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.12": "v.palette_count > 12"
+          "controller.render.crtrlabs_paint.painting_rot.tile.12": "v.is_facing_camera && v.palette_count > 12"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.13": "v.palette_count > 13"
+          "controller.render.crtrlabs_paint.painting_rot.tile.13": "v.is_facing_camera && v.palette_count > 13"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.14": "v.palette_count > 14"
+          "controller.render.crtrlabs_paint.painting_rot.tile.14": "v.is_facing_camera && v.palette_count > 14"
         }
       ]
     }

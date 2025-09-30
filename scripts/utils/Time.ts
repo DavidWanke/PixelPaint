@@ -54,9 +54,6 @@ export class Time {
   }
 
   static shouldToggle(seconds: number) {
-    if (seconds % 1 !== 0) {
-      console.error("Time.shouldToggle: seconds must be an integer.");
-    }
     return system.currentTick % Time.secondsToTicks(seconds) === 0;
   }
 }
