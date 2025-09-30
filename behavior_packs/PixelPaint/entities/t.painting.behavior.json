@@ -9,7 +9,7 @@
       "properties": {
         "crtrlabs_paint:palette_count": {
           "type": "int",
-          "default": 2,
+          "default": 4,
           "range": [
             1,
             16
@@ -18,7 +18,7 @@
         },
         "crtrlabs_paint:tp0": {
           "type": "int",
-          "default": 0,
+          "default": 78300,
           "range": [
             0,
             16777215
@@ -27,7 +27,7 @@
         },
         "crtrlabs_paint:tp1": {
           "type": "int",
-          "default": 78300,
+          "default": 0,
           "range": [
             0,
             16777215
@@ -36,7 +36,7 @@
         },
         "crtrlabs_paint:tp2": {
           "type": "int",
-          "default": 0,
+          "default": 12,
           "range": [
             0,
             16777215
@@ -45,7 +45,7 @@
         },
         "crtrlabs_paint:tp3": {
           "type": "int",
-          "default": 0,
+          "default": 63869,
           "range": [
             0,
             16777215
@@ -162,7 +162,7 @@
         },
         "crtrlabs_paint:leaf_idx_f0": {
           "type": "int",
-          "default": 1052688,
+          "default": 65794,
           "range": [
             0,
             16777215
@@ -171,7 +171,7 @@
         },
         "crtrlabs_paint:leaf_idx_f1": {
           "type": "int",
-          "default": 65808,
+          "default": 1052673,
           "range": [
             0,
             16777215
@@ -180,7 +180,7 @@
         },
         "crtrlabs_paint:leaf_idx_f2": {
           "type": "int",
-          "default": 1048833,
+          "default": 69648,
           "range": [
             0,
             16777215
@@ -189,7 +189,7 @@
         },
         "crtrlabs_paint:leaf_idx_f3": {
           "type": "int",
-          "default": 1052688,
+          "default": 65793,
           "range": [
             0,
             16777215
@@ -198,7 +198,7 @@
         },
         "crtrlabs_paint:leaf_idx_f4": {
           "type": "int",
-          "default": 65793,
+          "default": 1052688,
           "range": [
             0,
             16777215
@@ -207,7 +207,7 @@
         },
         "crtrlabs_paint:leaf_idx_f5": {
           "type": "int",
-          "default": 1052673,
+          "default": 65808,
           "range": [
             0,
             16777215
@@ -216,7 +216,7 @@
         },
         "crtrlabs_paint:leaf_idx_f6": {
           "type": "int",
-          "default": 69648,
+          "default": 1048833,
           "range": [
             0,
             16777215
@@ -225,7 +225,7 @@
         },
         "crtrlabs_paint:leaf_idx_f7": {
           "type": "int",
-          "default": 65793,
+          "default": 1052688,
           "range": [
             0,
             16777215
@@ -234,7 +234,7 @@
         },
         "crtrlabs_paint:leaf_idx_f8": {
           "type": "int",
-          "default": 1052688,
+          "default": 65793,
           "range": [
             0,
             16777215
@@ -243,7 +243,7 @@
         },
         "crtrlabs_paint:leaf_idx_f9": {
           "type": "int",
-          "default": 65808,
+          "default": 1052673,
           "range": [
             0,
             16777215
@@ -252,7 +252,7 @@
         },
         "crtrlabs_paint:leaf_idx_f10": {
           "type": "int",
-          "default": 257,
+          "default": 12304,
           "range": [
             0,
             16777215

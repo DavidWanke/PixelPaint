@@ -99,6 +99,9 @@ function generateTestCheckerboard() {
         grid.push(row);
     }
 
+    grid[0][0] = COLOR_NAMES.indexOf('red'); // Top-left corner red for testing
+    grid[15][15] = COLOR_NAMES.indexOf('blue'); // Bottom-right corner blue for testing
+
     return grid;
 }
 
