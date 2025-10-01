@@ -76,7 +76,12 @@ function generateCameraFacingScript() {
         "v.yaw_diff = math.abs(math.abs(query.rotation_to_camera(1) - query.camera_rotation(1)) - 180);",
         "v.pitch_diff = math.abs(math.abs(query.rotation_to_camera(0) - query.camera_rotation(0)) - 180);",
         "v.distance_scale = math.clamp(1 - (query.distance_from_camera - 16) / 16, 0, 1);",
-        "v.is_facing_camera = (v.yaw_diff < 90 || v.pitch_diff < 90) && query.distance_from_camera < 32;"
+
+
+        "v.rotation_to_camera_0 = -Math.atan2(-q.distance_from_camera * Math.sin(q.rotation_to_camera(0)) - 1, q.distance_from_camera * Math.cos(q.rotation_to_camera(0)));",
+        "v.look_at_entity = Math.abs(Math.abs(q.rotation_to_camera(1) - q.camera_rotation(1)) - 180) < (720 / q.distance_from_camera) && Math.abs(v.rotation_to_camera_0 + q.camera_rotation(0)) < (720 / q.distance_from_camera);",
+        "v.is_facing_camera = v.look_at_entity && v.distance_scale > 0;"
+        //"v.is_facing_camera = (v.yaw_diff < 90 || v.pitch_diff < 90) && query.distance_from_camera < 32;"
     ];
 }
 

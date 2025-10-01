@@ -29,7 +29,7 @@ interface PalettePack {
 }
 
 
-export class CorePaintingSystem extends EntitySystem {
+export class PaintingDataSystem extends EntitySystem {
 
     constructor(entity: Entity) {
         super(entity);
@@ -215,7 +215,6 @@ export class CorePaintingSystem extends EntitySystem {
         // 3) Take top 15 by frequency
 
         // if more than 15 send message
-        world.sendMessage(`Painting uses ${freq.size} unique tiles, displaying top 15 with LOD optimization.`);
         if (freq.size > 15) {
             world.sendMessage(`⚠️  Warning: Painting uses ${freq.size} unique tiles, but only 15 can be displayed!`);
         }
@@ -382,10 +381,10 @@ export class CorePaintingSystem extends EntitySystem {
         }
 
         // Convert to leaves
-        const leaves = CorePaintingSystem.colorGridToLeaves(colorGrid);
+        const leaves = PaintingDataSystem.colorGridToLeaves(colorGrid);
 
         // Build palette with rotation optimization
-        const pack = CorePaintingSystem.buildPaletteWithRotation(leaves);
+        const pack = PaintingDataSystem.buildPaletteWithRotation(leaves);
 
         // Set palette properties (tp0-tp14)
         for (let i = 0; i < 15; i++) {

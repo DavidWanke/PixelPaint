@@ -19,8 +19,10 @@
   "FAMILY": {
   },
   "ITEM": {
+    "PAINTING": "painting"
   },
   "ITEM_COMPONENT": {
+    "PAINTING": "painting"
   },
   "ENTITY": {
     "PAINTING": "painting",

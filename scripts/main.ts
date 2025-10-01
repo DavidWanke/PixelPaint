@@ -1,11 +1,16 @@
 import { world, Entity, system } from "@minecraft/server";
 import { globalEventManager, EventProcessor } from "./utils/EventManager";
-import { CorePaintingSystem } from "./painting/PaintingSystem";
+import { PaintingDataSystem } from "./painting/PaintingDataSystem";
 import { DistanceOptimizationSystem } from "./painting/DistanceOptimizationSystem";
 import { Time } from "./utils/Time";
+import { PaintingItemComponent } from "./items/Painting";
 
 
 let currentTick = 0;
+
+world.beforeEvents.worldInitialize.subscribe(({ itemComponentRegistry }) => {
+  itemComponentRegistry.registerCustomComponent("ITEM_COMPONENT(PAINTING)", PaintingItemComponent);
+});
 
 system.afterEvents.scriptEventReceive.subscribe((event) => {
   const { id, initiator, message, sourceBlock, sourceEntity, sourceType } = event;
@@ -44,7 +49,7 @@ class GeneralEvents {
   @EventProcessor<Entity>("S_EVENT(CHANGE_PAINTING_CHECKERBOARD)")
   static changePaintingToCheckerboard(player: Entity) {
     const dimension = player.dimension;
-    const grid = CorePaintingSystem.generateTestCheckerboard();
+    const grid = PaintingDataSystem.generateTestCheckerboard();
     dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
       world.sendMessage(`Changing painting ${ent.id} to checkerboard with LOD optimization`);
 
@@ -59,7 +64,7 @@ class GeneralEvents {
   @EventProcessor<Entity>("S_EVENT(CHANGE_PAINTING_GRADIENT)")
   static changePaintingToGradient(player: Entity) {
     const dimension = player.dimension;
-    const grid = CorePaintingSystem.generateTestGradient();
+    const grid = PaintingDataSystem.generateTestGradient();
     dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
       world.sendMessage(`Changing painting ${ent.id} to gradient with LOD optimization`);
 
@@ -74,7 +79,7 @@ class GeneralEvents {
   @EventProcessor<Entity>("crtrlabs_paint:paint_8x8")
   static changePaintingTo8x8(player: Entity) {
     const dimension = player.dimension;
-    const grid = CorePaintingSystem.generateTest8x8();
+    const grid = PaintingDataSystem.generateTest8x8();
     dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
       world.sendMessage(`Changing painting ${ent.id} to 8x8 test pattern with LOD optimization`);
 

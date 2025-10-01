@@ -1,0 +1,8 @@
+{
+    "resource_pack_name": "crtrlabs_paint",
+    "texture_data": {
+        "crtrlabs_paint_painting": {
+            "textures": "textures/crtrlabs/paint/items/painting"
+        }
+    }
+}

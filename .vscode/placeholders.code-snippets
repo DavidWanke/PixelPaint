@@ -9,6 +9,16 @@
     "body": "S_EVENT(CHANGE_PAINTING_GRADIENT)",
     "description": "Insert S_EVENT(CHANGE_PAINTING_GRADIENT)"
   },
+  "ITEM(PAINTING)": {
+    "prefix": "ITEM(PAINTING)",
+    "body": "ITEM(PAINTING)",
+    "description": "Insert ITEM(PAINTING)"
+  },
+  "ITEM_COMPONENT(PAINTING)": {
+    "prefix": "ITEM_COMPONENT(PAINTING)",
+    "body": "ITEM_COMPONENT(PAINTING)",
+    "description": "Insert ITEM_COMPONENT(PAINTING)"
+  },
   "ENTITY(PAINTING)": {
     "prefix": "ENTITY(PAINTING)",
     "body": "ENTITY(PAINTING)",

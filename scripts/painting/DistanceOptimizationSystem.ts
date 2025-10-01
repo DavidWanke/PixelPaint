@@ -1,6 +1,6 @@
 import { Entity, Player, Vector3, world } from "@minecraft/server";
 import { EntitySystem, Loadable, Savable, Dynamic } from "../utils/EntitySystem";
-import { CorePaintingSystem } from "./PaintingSystem";
+import { PaintingDataSystem } from "./PaintingDataSystem";
 import { Utilities } from "../utils/Utilities";
 import { Vector3D } from "../utils/Vector";
 
@@ -40,7 +40,7 @@ export class DistanceOptimizationSystem extends EntitySystem {
     @Dynamic
     paletteIndex: number = 0; // Palette index used for this painting
 
-    private corePaintingSystem: CorePaintingSystem;
+    private PaintingDataSystem: PaintingDataSystem;
 
     // Distance thresholds (in blocks)
     private static readonly THRESHOLDS = [16, 24, 32]; // LOD 0, 1, 2, 3
@@ -49,7 +49,7 @@ export class DistanceOptimizationSystem extends EntitySystem {
     constructor(entity: Entity) {
         super(entity);
         this.loadFromEntity(entity);
-        this.corePaintingSystem = new CorePaintingSystem(entity);
+        this.PaintingDataSystem = new PaintingDataSystem(entity);
     }
 
     static fromEntity(entity: Entity): DistanceOptimizationSystem | null {
@@ -164,7 +164,7 @@ export class DistanceOptimizationSystem extends EntitySystem {
 
         // Decode and apply
         const grid = DistanceOptimizationSystem.decodeRLE(rle);
-        this.corePaintingSystem.changeImage(grid, this.paletteIndex);
+        this.PaintingDataSystem.changeImage(grid, this.paletteIndex);
 
         this.current_lod = level;
         this.saveToEntity(this.entity);
