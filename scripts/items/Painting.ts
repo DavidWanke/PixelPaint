@@ -11,5 +11,11 @@ export const PaintingItemComponent = {
 
     world.sendMessage("Test")
 
+    const raycastHit = player.getBlockFromViewDirection({maxDistance: 8})
+
+    if (raycastHit) {
+      const block = raycastHit.block;
+    }
+
   },
 };
