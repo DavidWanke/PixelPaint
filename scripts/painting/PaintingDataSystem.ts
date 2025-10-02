@@ -20,12 +20,10 @@ interface Leaf {
     colors: [number, number, number, number]; // [TL, TR, BL, BR]
 }
 
-// Palette pack result
+// Palette pack result (v2.0 - 20 tiles with data0-data31)
 interface PalettePack {
-    used: number;           // Number of palette slots used (1-15)
-    tp: number[];           // 15 canonical tileIds
-    idxFloats: number[];    // 11 floats with packed indices
-    rotationFloats: number[]; // 6 floats with packed rotations
+    used: number;           // Number of palette slots used (1-20)
+    dataFloats: number[];   // All 32 data floats (data0-data31)
 }
 
 
@@ -113,54 +111,101 @@ export class PaintingDataSystem extends EntitySystem {
         };
     }
 
-    // ========== Packing Helpers ==========
+    // ========== Packing Helpers (v2.0 - 20 tiles) ==========
 
     /**
-     * Pack 64 rotation values (0-3) + palette_count into 6 floats
-     * First 5 floats: 12 rotations each (12 × 2 bits = 24 bits)
-     * Last float: 4 rotations + palette_count (8 bits + 4 bits)
+     * Pack rotations 40-63 into 2 floats (rotations 0-39 packed into data0-data19)
+     * @param rotations Array of 64 rotation values (0-3)
+     * @returns Array of 2 packed floats (data30, data31)
      */
-    private static packRotations(rotations: number[], paletteCount: number): number[] {
+    private static packRotationsOptimized(rotations: number[]): number[] {
         const rotationFloats: number[] = [];
 
-        // Pack first 5 floats: 12 rotations each
-        for (let base = 0; base < 60; base += 12) {
-            let acc = 0;
-            for (let k = 0; k < 12; k++) {
-                acc |= (rotations[base + k] & 0x3) << (2 * k);
-            }
-            rotationFloats.push(acc);
+        // Pack data30: rotations 40-51 (12 × 2 bits = 24 bits)
+        let f0 = 0;
+        for (let i = 40; i < 52; i++) {
+            f0 |= (rotations[i] & 0x3) << ((i - 40) * 2);
         }
+        rotationFloats.push(f0);
 
-        // Pack final float: leaves 60-63 (8 bits) + palette_count (4 bits)
-        let finalFloat = 0;
-        finalFloat |= (rotations[60] & 0x3);           // bits 0-1
-        finalFloat |= (rotations[61] & 0x3) << 2;      // bits 2-3
-        finalFloat |= (rotations[62] & 0x3) << 4;      // bits 4-5
-        finalFloat |= (rotations[63] & 0x3) << 6;      // bits 6-7
-        finalFloat |= (paletteCount & 0xF) << 8;       // bits 8-11
-        rotationFloats.push(finalFloat);
+        // Pack data31: rotations 52-63 (12 × 2 bits = 24 bits)
+        let f1 = 0;
+        for (let i = 52; i < 64; i++) {
+            f1 |= (rotations[i] & 0x3) << ((i - 52) * 2);
+        }
+        rotationFloats.push(f1);
 
-        return rotationFloats; // Length 6
+        return rotationFloats; // Length 2
     }
 
     /**
-     * Pack 64 palette indices (4-bit each) into 11 floats
-     * Each float packs 6 indices (6 × 4 bits = 24 bits)
+     * Pack 64 palette indices (5-bit each) into 10 floats + palette_count
+     * First 20 indices (0-19) are packed into data0-data19
+     * Remaining 44 indices (20-63) packed into data20-data29
+     * @param indices Array of 64 palette indices (0-19)
+     * @param paletteCount Palette count (1-20)
+     * @returns Array of 10 packed floats (data20-data29)
      */
-    private static packIndices(indices: number[]): number[] {
+    private static packIndicesWith5Bits(indices: number[], paletteCount: number): number[] {
         const idxFloats: number[] = [];
 
-        for (let base = 0; base < 64; base += 6) {
-            let lsbAcc = 0;
-            const count = Math.min(6, 64 - base);
-            for (let k = 0; k < count; k++) {
-                lsbAcc |= (indices[base + k] & 0xF) << (4 * k);
+        // Pack indices 20-63 (44 total) tightly into bits
+        // 44 × 5 bits = 220 bits → 9.17 floats → 10 floats
+        let bitBuffer = 0;
+        let bitsInBuffer = 0;
+
+        for (let i = 20; i < 64; i++) {
+            bitBuffer |= (indices[i] & 0x1F) << bitsInBuffer;
+            bitsInBuffer += 5;
+
+            while (bitsInBuffer >= 24) {
+                idxFloats.push(bitBuffer & 0xFFFFFF);
+                bitBuffer >>>= 24;
+                bitsInBuffer -= 24;
             }
-            idxFloats.push(lsbAcc); // <= 0xFFFFFF, safe as float
         }
 
-        return idxFloats; // Length 11
+        // Flush remaining bits if any
+        if (bitsInBuffer > 0) {
+            idxFloats.push(bitBuffer & 0xFFFFFF);
+        }
+
+        // Pad to 10 floats
+        while (idxFloats.length < 10) {
+            idxFloats.push(0);
+        }
+
+        // Pack palette_count into data29 (bits 20-24)
+        idxFloats[9] |= (paletteCount & 0x1F) << 20;
+
+        return idxFloats; // Length 10
+    }
+
+    /**
+     * Pack data0-data19 floats with atlas index + palette index + 2 rotations
+     * @param atlasIndices Array of 20 atlas indices
+     * @param paletteIndices Array of 64 palette indices (uses indices 0-19)
+     * @param rotations Array of 64 rotations (uses rotations 0-39)
+     * @returns Array of 20 packed floats (data0-data19)
+     */
+    private static packDataFloats(atlasIndices: number[], paletteIndices: number[], rotations: number[]): number[] {
+        const dataFloats: number[] = [];
+
+        for (let i = 0; i < 20; i++) {
+            const atlasIndex = atlasIndices[i] || 0;
+            const paletteIdx = paletteIndices[i] || 0;
+            const rot_a = rotations[i] || 0;
+            const rot_b = rotations[i + 20] || 0;
+
+            const packed = (atlasIndex & 0x7FFF)         |  // bits 0-14: atlas index
+                           ((paletteIdx & 0x1F) << 15)   |  // bits 15-19: palette index
+                           ((rot_a & 0x3) << 20)         |  // bits 20-21: rotation A
+                           ((rot_b & 0x3) << 22);           // bits 22-23: rotation B
+
+            dataFloats.push(packed);
+        }
+
+        return dataFloats; // Length 20
     }
 
     /**
@@ -187,8 +232,8 @@ export class PaintingDataSystem extends EntitySystem {
     }
 
     /**
-     * Build palette with rotation optimization from 64 leaves
-     * Returns palette (15 slots), packed indices, and packed rotations
+     * Build palette with rotation optimization from 64 leaves (v2.0 - 20 tiles)
+     * Returns all 32 packed data floats (data0-data31)
      */
     private static buildPaletteWithRotation(leaves: Leaf[]): PalettePack {
         // 1) Convert each leaf to canonical form and track rotations
@@ -212,13 +257,11 @@ export class PaintingDataSystem extends EntitySystem {
             freq.set(leaf.canonicalTileId, (freq.get(leaf.canonicalTileId) || 0) + 1);
         }
 
-        // 3) Take top 15 by frequency
-
-        // if more than 15 send message
-        if (freq.size > 15) {
-            world.sendMessage(`⚠️  Warning: Painting uses ${freq.size} unique tiles, but only 15 can be displayed!`);
+        // 3) Take top 20 by frequency (upgraded from 15)
+        if (freq.size > 20) {
+            world.sendMessage(`⚠️  Warning: Painting uses ${freq.size} unique tiles, but only 20 can be displayed!`);
         }
-        const sorted = [...freq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 15);
+        const sorted = [...freq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 20);
         const topCanonicalTileIds = sorted.map(([id]) => id);
         const used = topCanonicalTileIds.length;
 
@@ -229,7 +272,7 @@ export class PaintingDataSystem extends EntitySystem {
         }
 
         // 5) Convert canonical tileIds to atlas indices
-        const palette = topCanonicalTileIds.map(canonicalTileId => {
+        const atlasIndices = topCanonicalTileIds.map(canonicalTileId => {
             const atlasIndex = ATLAS_CACHE.canonicalToIndex[canonicalTileId.toString()];
             if (atlasIndex === undefined) {
                 console.warn(`⚠️  Canonical tileId ${canonicalTileId} not found in atlas!`);
@@ -238,9 +281,9 @@ export class PaintingDataSystem extends EntitySystem {
             return atlasIndex; // Store atlas index, not tileId
         });
 
-        // Fill to 15 slots
-        while (palette.length < 15) {
-            palette.push(0);
+        // Fill to 20 slots
+        while (atlasIndices.length < 20) {
+            atlasIndices.push(0);
         }
 
         // 6) Build indices and rotations arrays
@@ -249,15 +292,18 @@ export class PaintingDataSystem extends EntitySystem {
         for (let i = 0; i < 64; i++) {
             const leaf = canonicalLeaves[i];
             const idx = indexOf.has(leaf.canonicalTileId) ? indexOf.get(leaf.canonicalTileId)! : 0;
-            indices[i] = idx; // 0..14
+            indices[i] = idx; // 0..19 (5 bits)
             rotations[i] = leaf.rotation; // 0..3
         }
 
-        // 7) Pack indices and rotations
-        const idxFloats = this.packIndices(indices);
-        const rotationFloats = this.packRotations(rotations, used);
+        // 7) Pack all 32 data floats
+        const data0to19 = this.packDataFloats(atlasIndices, indices, rotations);
+        const data20to29 = this.packIndicesWith5Bits(indices, used);
+        const data30to31 = this.packRotationsOptimized(rotations);
 
-        return { used, tp: palette, idxFloats, rotationFloats };
+        const dataFloats = [...data0to19, ...data20to29, ...data30to31];
+
+        return { used, dataFloats };
     }
 
     // ========== Test Pattern Generators ==========
@@ -369,7 +415,7 @@ export class PaintingDataSystem extends EntitySystem {
     // ========== Main Image Setter ==========
 
     /**
-     * Change the painting image by setting all 32 properties
+     * Change the painting image by setting all 32 data properties (v2.0)
      * @param colorGrid 16x16 grid of color indices (0-16)
      * @param paletteIndex Palette index to use (default: 0 = MINECRAFT_PALETTE)
      */
@@ -383,22 +429,12 @@ export class PaintingDataSystem extends EntitySystem {
         // Convert to leaves
         const leaves = PaintingDataSystem.colorGridToLeaves(colorGrid);
 
-        // Build palette with rotation optimization
+        // Build palette with rotation optimization (v2.0 - returns all 32 data floats)
         const pack = PaintingDataSystem.buildPaletteWithRotation(leaves);
 
-        // Set palette properties (tp0-tp14)
-        for (let i = 0; i < 15; i++) {
-            this.entity.setProperty(`${NAMESPACE}:tp${i}`, pack.tp[i]);
-        }
-
-        // Set leaf index properties (leaf_idx_f0-f10)
-        for (let f = 0; f < 11; f++) {
-            this.entity.setProperty(`${NAMESPACE}:leaf_idx_f${f}`, pack.idxFloats[f] || 0);
-        }
-
-        // Set rotation properties (rotation_f0-f5)
-        for (let f = 0; f < 6; f++) {
-            this.entity.setProperty(`${NAMESPACE}:rotation_f${f}`, pack.rotationFloats[f] || 0);
+        // Set all 32 data properties (data0-data31)
+        for (let i = 0; i < 32; i++) {
+            this.entity.setProperty(`${NAMESPACE}:data${i}`, pack.dataFloats[i] || 0);
         }
     }
 

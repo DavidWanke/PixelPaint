@@ -7,16 +7,7 @@
       "is_spawnable": true,
       "is_experimental": false,
       "properties": {
-        "crtrlabs_paint:tp0": {
-          "type": "int",
-          "default": 20891,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:tp1": {
+        "crtrlabs_paint:data0": {
           "type": "int",
           "default": 0,
           "range": [
@@ -25,34 +16,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp2": {
-          "type": "int",
-          "default": 12,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:tp3": {
-          "type": "int",
-          "default": 1321,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:tp4": {
-          "type": "int",
-          "default": 13,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:tp5": {
+        "crtrlabs_paint:data1": {
           "type": "int",
           "default": 0,
           "range": [
@@ -61,7 +25,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp6": {
+        "crtrlabs_paint:data2": {
           "type": "int",
           "default": 0,
           "range": [
@@ -70,7 +34,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp7": {
+        "crtrlabs_paint:data3": {
           "type": "int",
           "default": 0,
           "range": [
@@ -79,7 +43,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp8": {
+        "crtrlabs_paint:data4": {
           "type": "int",
           "default": 0,
           "range": [
@@ -88,7 +52,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp9": {
+        "crtrlabs_paint:data5": {
           "type": "int",
           "default": 0,
           "range": [
@@ -97,7 +61,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp10": {
+        "crtrlabs_paint:data6": {
           "type": "int",
           "default": 0,
           "range": [
@@ -106,7 +70,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp11": {
+        "crtrlabs_paint:data7": {
           "type": "int",
           "default": 0,
           "range": [
@@ -115,7 +79,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp12": {
+        "crtrlabs_paint:data8": {
           "type": "int",
           "default": 0,
           "range": [
@@ -124,7 +88,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp13": {
+        "crtrlabs_paint:data9": {
           "type": "int",
           "default": 0,
           "range": [
@@ -133,7 +97,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:tp14": {
+        "crtrlabs_paint:data10": {
           "type": "int",
           "default": 0,
           "range": [
@@ -142,124 +106,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:leaf_idx_f0": {
-          "type": "int",
-          "default": 65795,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f1": {
-          "type": "int",
-          "default": 1056769,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f2": {
-          "type": "int",
-          "default": 69648,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f3": {
-          "type": "int",
-          "default": 65794,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f4": {
-          "type": "int",
-          "default": 1052688,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f5": {
-          "type": "int",
-          "default": 65808,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f6": {
-          "type": "int",
-          "default": 1048833,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f7": {
-          "type": "int",
-          "default": 1052688,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f8": {
-          "type": "int",
-          "default": 65793,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f9": {
-          "type": "int",
-          "default": 1052673,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:leaf_idx_f10": {
-          "type": "int",
-          "default": 16400,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:rotation_f0": {
-          "type": "int",
-          "default": 524289,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:rotation_f1": {
-          "type": "int",
-          "default": 8192,
-          "range": [
-            0,
-            16777215
-          ],
-          "client_sync": true
-        },
-        "crtrlabs_paint:rotation_f2": {
+        "crtrlabs_paint:data11": {
           "type": "int",
           "default": 0,
           "range": [
@@ -268,7 +115,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:rotation_f3": {
+        "crtrlabs_paint:data12": {
           "type": "int",
           "default": 0,
           "range": [
@@ -277,7 +124,7 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:rotation_f4": {
+        "crtrlabs_paint:data13": {
           "type": "int",
           "default": 0,
           "range": [
@@ -286,9 +133,162 @@
           ],
           "client_sync": true
         },
-        "crtrlabs_paint:rotation_f5": {
+        "crtrlabs_paint:data14": {
           "type": "int",
-          "default": 1280,
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data15": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data16": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data17": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data18": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data19": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data20": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data21": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data22": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data23": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data24": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data25": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data26": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data27": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data28": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data29": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data30": {
+          "type": "int",
+          "default": 0,
+          "range": [
+            0,
+            16777215
+          ],
+          "client_sync": true
+        },
+        "crtrlabs_paint:data31": {
+          "type": "int",
+          "default": 0,
           "range": [
             0,
             16777215

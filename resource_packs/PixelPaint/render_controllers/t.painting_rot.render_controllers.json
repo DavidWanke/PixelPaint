@@ -81,8 +81,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp0'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp0') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data0, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data0, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -170,8 +170,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp1'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp1') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data1, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data1, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -259,8 +259,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp2'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp2') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data2, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data2, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -348,8 +348,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp3'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp3') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data3, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data3, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -437,8 +437,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp4'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp4') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data4, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data4, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -526,8 +526,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp5'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp5') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data5, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data5, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -615,8 +615,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp6'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp6') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data6, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data6, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -704,8 +704,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp7'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp7') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data7, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data7, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -793,8 +793,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp8'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp8') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data8, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data8, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -882,8 +882,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp9'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp9') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data9, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data9, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -971,8 +971,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp10'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp10') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data10, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data10, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -1060,8 +1060,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp11'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp11') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data11, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data11, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -1149,8 +1149,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp12'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp12') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data12, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data12, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -1238,8 +1238,8 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp13'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp13') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data13, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data13, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",
@@ -1327,8 +1327,453 @@
       ],
       "uv_anim": {
         "offset": [
-          "(math.mod(query.property('crtrlabs_paint:tp14'), 145) * 2) / 512.0",
-          "(math.floor(query.property('crtrlabs_paint:tp14') / 145) * 2) / 512.0"
+          "(math.mod(math.mod(v.data14, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data14, 32768) / 145) * 2) / 512.0"
+        ],
+        "scale": [
+          "2.0 / 512.0",
+          "2.0 / 512.0"
+        ]
+      }
+    },
+    "controller.render.crtrlabs_paint.painting_rot.tile.15": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "l0": "v.leaf_palette_idx_0 == 15",
+          "l1": "v.leaf_palette_idx_1 == 15",
+          "l2": "v.leaf_palette_idx_2 == 15",
+          "l3": "v.leaf_palette_idx_3 == 15",
+          "l4": "v.leaf_palette_idx_4 == 15",
+          "l5": "v.leaf_palette_idx_5 == 15",
+          "l6": "v.leaf_palette_idx_6 == 15",
+          "l7": "v.leaf_palette_idx_7 == 15",
+          "l8": "v.leaf_palette_idx_8 == 15",
+          "l9": "v.leaf_palette_idx_9 == 15",
+          "l10": "v.leaf_palette_idx_10 == 15",
+          "l11": "v.leaf_palette_idx_11 == 15",
+          "l12": "v.leaf_palette_idx_12 == 15",
+          "l13": "v.leaf_palette_idx_13 == 15",
+          "l14": "v.leaf_palette_idx_14 == 15",
+          "l15": "v.leaf_palette_idx_15 == 15",
+          "l16": "v.leaf_palette_idx_16 == 15",
+          "l17": "v.leaf_palette_idx_17 == 15",
+          "l18": "v.leaf_palette_idx_18 == 15",
+          "l19": "v.leaf_palette_idx_19 == 15",
+          "l20": "v.leaf_palette_idx_20 == 15",
+          "l21": "v.leaf_palette_idx_21 == 15",
+          "l22": "v.leaf_palette_idx_22 == 15",
+          "l23": "v.leaf_palette_idx_23 == 15",
+          "l24": "v.leaf_palette_idx_24 == 15",
+          "l25": "v.leaf_palette_idx_25 == 15",
+          "l26": "v.leaf_palette_idx_26 == 15",
+          "l27": "v.leaf_palette_idx_27 == 15",
+          "l28": "v.leaf_palette_idx_28 == 15",
+          "l29": "v.leaf_palette_idx_29 == 15",
+          "l30": "v.leaf_palette_idx_30 == 15",
+          "l31": "v.leaf_palette_idx_31 == 15",
+          "l32": "v.leaf_palette_idx_32 == 15",
+          "l33": "v.leaf_palette_idx_33 == 15",
+          "l34": "v.leaf_palette_idx_34 == 15",
+          "l35": "v.leaf_palette_idx_35 == 15",
+          "l36": "v.leaf_palette_idx_36 == 15",
+          "l37": "v.leaf_palette_idx_37 == 15",
+          "l38": "v.leaf_palette_idx_38 == 15",
+          "l39": "v.leaf_palette_idx_39 == 15",
+          "l40": "v.leaf_palette_idx_40 == 15",
+          "l41": "v.leaf_palette_idx_41 == 15",
+          "l42": "v.leaf_palette_idx_42 == 15",
+          "l43": "v.leaf_palette_idx_43 == 15",
+          "l44": "v.leaf_palette_idx_44 == 15",
+          "l45": "v.leaf_palette_idx_45 == 15",
+          "l46": "v.leaf_palette_idx_46 == 15",
+          "l47": "v.leaf_palette_idx_47 == 15",
+          "l48": "v.leaf_palette_idx_48 == 15",
+          "l49": "v.leaf_palette_idx_49 == 15",
+          "l50": "v.leaf_palette_idx_50 == 15",
+          "l51": "v.leaf_palette_idx_51 == 15",
+          "l52": "v.leaf_palette_idx_52 == 15",
+          "l53": "v.leaf_palette_idx_53 == 15",
+          "l54": "v.leaf_palette_idx_54 == 15",
+          "l55": "v.leaf_palette_idx_55 == 15",
+          "l56": "v.leaf_palette_idx_56 == 15",
+          "l57": "v.leaf_palette_idx_57 == 15",
+          "l58": "v.leaf_palette_idx_58 == 15",
+          "l59": "v.leaf_palette_idx_59 == 15",
+          "l60": "v.leaf_palette_idx_60 == 15",
+          "l61": "v.leaf_palette_idx_61 == 15",
+          "l62": "v.leaf_palette_idx_62 == 15",
+          "l63": "v.leaf_palette_idx_63 == 15"
+        }
+      ],
+      "uv_anim": {
+        "offset": [
+          "(math.mod(math.mod(v.data15, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data15, 32768) / 145) * 2) / 512.0"
+        ],
+        "scale": [
+          "2.0 / 512.0",
+          "2.0 / 512.0"
+        ]
+      }
+    },
+    "controller.render.crtrlabs_paint.painting_rot.tile.16": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "l0": "v.leaf_palette_idx_0 == 16",
+          "l1": "v.leaf_palette_idx_1 == 16",
+          "l2": "v.leaf_palette_idx_2 == 16",
+          "l3": "v.leaf_palette_idx_3 == 16",
+          "l4": "v.leaf_palette_idx_4 == 16",
+          "l5": "v.leaf_palette_idx_5 == 16",
+          "l6": "v.leaf_palette_idx_6 == 16",
+          "l7": "v.leaf_palette_idx_7 == 16",
+          "l8": "v.leaf_palette_idx_8 == 16",
+          "l9": "v.leaf_palette_idx_9 == 16",
+          "l10": "v.leaf_palette_idx_10 == 16",
+          "l11": "v.leaf_palette_idx_11 == 16",
+          "l12": "v.leaf_palette_idx_12 == 16",
+          "l13": "v.leaf_palette_idx_13 == 16",
+          "l14": "v.leaf_palette_idx_14 == 16",
+          "l15": "v.leaf_palette_idx_15 == 16",
+          "l16": "v.leaf_palette_idx_16 == 16",
+          "l17": "v.leaf_palette_idx_17 == 16",
+          "l18": "v.leaf_palette_idx_18 == 16",
+          "l19": "v.leaf_palette_idx_19 == 16",
+          "l20": "v.leaf_palette_idx_20 == 16",
+          "l21": "v.leaf_palette_idx_21 == 16",
+          "l22": "v.leaf_palette_idx_22 == 16",
+          "l23": "v.leaf_palette_idx_23 == 16",
+          "l24": "v.leaf_palette_idx_24 == 16",
+          "l25": "v.leaf_palette_idx_25 == 16",
+          "l26": "v.leaf_palette_idx_26 == 16",
+          "l27": "v.leaf_palette_idx_27 == 16",
+          "l28": "v.leaf_palette_idx_28 == 16",
+          "l29": "v.leaf_palette_idx_29 == 16",
+          "l30": "v.leaf_palette_idx_30 == 16",
+          "l31": "v.leaf_palette_idx_31 == 16",
+          "l32": "v.leaf_palette_idx_32 == 16",
+          "l33": "v.leaf_palette_idx_33 == 16",
+          "l34": "v.leaf_palette_idx_34 == 16",
+          "l35": "v.leaf_palette_idx_35 == 16",
+          "l36": "v.leaf_palette_idx_36 == 16",
+          "l37": "v.leaf_palette_idx_37 == 16",
+          "l38": "v.leaf_palette_idx_38 == 16",
+          "l39": "v.leaf_palette_idx_39 == 16",
+          "l40": "v.leaf_palette_idx_40 == 16",
+          "l41": "v.leaf_palette_idx_41 == 16",
+          "l42": "v.leaf_palette_idx_42 == 16",
+          "l43": "v.leaf_palette_idx_43 == 16",
+          "l44": "v.leaf_palette_idx_44 == 16",
+          "l45": "v.leaf_palette_idx_45 == 16",
+          "l46": "v.leaf_palette_idx_46 == 16",
+          "l47": "v.leaf_palette_idx_47 == 16",
+          "l48": "v.leaf_palette_idx_48 == 16",
+          "l49": "v.leaf_palette_idx_49 == 16",
+          "l50": "v.leaf_palette_idx_50 == 16",
+          "l51": "v.leaf_palette_idx_51 == 16",
+          "l52": "v.leaf_palette_idx_52 == 16",
+          "l53": "v.leaf_palette_idx_53 == 16",
+          "l54": "v.leaf_palette_idx_54 == 16",
+          "l55": "v.leaf_palette_idx_55 == 16",
+          "l56": "v.leaf_palette_idx_56 == 16",
+          "l57": "v.leaf_palette_idx_57 == 16",
+          "l58": "v.leaf_palette_idx_58 == 16",
+          "l59": "v.leaf_palette_idx_59 == 16",
+          "l60": "v.leaf_palette_idx_60 == 16",
+          "l61": "v.leaf_palette_idx_61 == 16",
+          "l62": "v.leaf_palette_idx_62 == 16",
+          "l63": "v.leaf_palette_idx_63 == 16"
+        }
+      ],
+      "uv_anim": {
+        "offset": [
+          "(math.mod(math.mod(v.data16, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data16, 32768) / 145) * 2) / 512.0"
+        ],
+        "scale": [
+          "2.0 / 512.0",
+          "2.0 / 512.0"
+        ]
+      }
+    },
+    "controller.render.crtrlabs_paint.painting_rot.tile.17": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "l0": "v.leaf_palette_idx_0 == 17",
+          "l1": "v.leaf_palette_idx_1 == 17",
+          "l2": "v.leaf_palette_idx_2 == 17",
+          "l3": "v.leaf_palette_idx_3 == 17",
+          "l4": "v.leaf_palette_idx_4 == 17",
+          "l5": "v.leaf_palette_idx_5 == 17",
+          "l6": "v.leaf_palette_idx_6 == 17",
+          "l7": "v.leaf_palette_idx_7 == 17",
+          "l8": "v.leaf_palette_idx_8 == 17",
+          "l9": "v.leaf_palette_idx_9 == 17",
+          "l10": "v.leaf_palette_idx_10 == 17",
+          "l11": "v.leaf_palette_idx_11 == 17",
+          "l12": "v.leaf_palette_idx_12 == 17",
+          "l13": "v.leaf_palette_idx_13 == 17",
+          "l14": "v.leaf_palette_idx_14 == 17",
+          "l15": "v.leaf_palette_idx_15 == 17",
+          "l16": "v.leaf_palette_idx_16 == 17",
+          "l17": "v.leaf_palette_idx_17 == 17",
+          "l18": "v.leaf_palette_idx_18 == 17",
+          "l19": "v.leaf_palette_idx_19 == 17",
+          "l20": "v.leaf_palette_idx_20 == 17",
+          "l21": "v.leaf_palette_idx_21 == 17",
+          "l22": "v.leaf_palette_idx_22 == 17",
+          "l23": "v.leaf_palette_idx_23 == 17",
+          "l24": "v.leaf_palette_idx_24 == 17",
+          "l25": "v.leaf_palette_idx_25 == 17",
+          "l26": "v.leaf_palette_idx_26 == 17",
+          "l27": "v.leaf_palette_idx_27 == 17",
+          "l28": "v.leaf_palette_idx_28 == 17",
+          "l29": "v.leaf_palette_idx_29 == 17",
+          "l30": "v.leaf_palette_idx_30 == 17",
+          "l31": "v.leaf_palette_idx_31 == 17",
+          "l32": "v.leaf_palette_idx_32 == 17",
+          "l33": "v.leaf_palette_idx_33 == 17",
+          "l34": "v.leaf_palette_idx_34 == 17",
+          "l35": "v.leaf_palette_idx_35 == 17",
+          "l36": "v.leaf_palette_idx_36 == 17",
+          "l37": "v.leaf_palette_idx_37 == 17",
+          "l38": "v.leaf_palette_idx_38 == 17",
+          "l39": "v.leaf_palette_idx_39 == 17",
+          "l40": "v.leaf_palette_idx_40 == 17",
+          "l41": "v.leaf_palette_idx_41 == 17",
+          "l42": "v.leaf_palette_idx_42 == 17",
+          "l43": "v.leaf_palette_idx_43 == 17",
+          "l44": "v.leaf_palette_idx_44 == 17",
+          "l45": "v.leaf_palette_idx_45 == 17",
+          "l46": "v.leaf_palette_idx_46 == 17",
+          "l47": "v.leaf_palette_idx_47 == 17",
+          "l48": "v.leaf_palette_idx_48 == 17",
+          "l49": "v.leaf_palette_idx_49 == 17",
+          "l50": "v.leaf_palette_idx_50 == 17",
+          "l51": "v.leaf_palette_idx_51 == 17",
+          "l52": "v.leaf_palette_idx_52 == 17",
+          "l53": "v.leaf_palette_idx_53 == 17",
+          "l54": "v.leaf_palette_idx_54 == 17",
+          "l55": "v.leaf_palette_idx_55 == 17",
+          "l56": "v.leaf_palette_idx_56 == 17",
+          "l57": "v.leaf_palette_idx_57 == 17",
+          "l58": "v.leaf_palette_idx_58 == 17",
+          "l59": "v.leaf_palette_idx_59 == 17",
+          "l60": "v.leaf_palette_idx_60 == 17",
+          "l61": "v.leaf_palette_idx_61 == 17",
+          "l62": "v.leaf_palette_idx_62 == 17",
+          "l63": "v.leaf_palette_idx_63 == 17"
+        }
+      ],
+      "uv_anim": {
+        "offset": [
+          "(math.mod(math.mod(v.data17, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data17, 32768) / 145) * 2) / 512.0"
+        ],
+        "scale": [
+          "2.0 / 512.0",
+          "2.0 / 512.0"
+        ]
+      }
+    },
+    "controller.render.crtrlabs_paint.painting_rot.tile.18": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "l0": "v.leaf_palette_idx_0 == 18",
+          "l1": "v.leaf_palette_idx_1 == 18",
+          "l2": "v.leaf_palette_idx_2 == 18",
+          "l3": "v.leaf_palette_idx_3 == 18",
+          "l4": "v.leaf_palette_idx_4 == 18",
+          "l5": "v.leaf_palette_idx_5 == 18",
+          "l6": "v.leaf_palette_idx_6 == 18",
+          "l7": "v.leaf_palette_idx_7 == 18",
+          "l8": "v.leaf_palette_idx_8 == 18",
+          "l9": "v.leaf_palette_idx_9 == 18",
+          "l10": "v.leaf_palette_idx_10 == 18",
+          "l11": "v.leaf_palette_idx_11 == 18",
+          "l12": "v.leaf_palette_idx_12 == 18",
+          "l13": "v.leaf_palette_idx_13 == 18",
+          "l14": "v.leaf_palette_idx_14 == 18",
+          "l15": "v.leaf_palette_idx_15 == 18",
+          "l16": "v.leaf_palette_idx_16 == 18",
+          "l17": "v.leaf_palette_idx_17 == 18",
+          "l18": "v.leaf_palette_idx_18 == 18",
+          "l19": "v.leaf_palette_idx_19 == 18",
+          "l20": "v.leaf_palette_idx_20 == 18",
+          "l21": "v.leaf_palette_idx_21 == 18",
+          "l22": "v.leaf_palette_idx_22 == 18",
+          "l23": "v.leaf_palette_idx_23 == 18",
+          "l24": "v.leaf_palette_idx_24 == 18",
+          "l25": "v.leaf_palette_idx_25 == 18",
+          "l26": "v.leaf_palette_idx_26 == 18",
+          "l27": "v.leaf_palette_idx_27 == 18",
+          "l28": "v.leaf_palette_idx_28 == 18",
+          "l29": "v.leaf_palette_idx_29 == 18",
+          "l30": "v.leaf_palette_idx_30 == 18",
+          "l31": "v.leaf_palette_idx_31 == 18",
+          "l32": "v.leaf_palette_idx_32 == 18",
+          "l33": "v.leaf_palette_idx_33 == 18",
+          "l34": "v.leaf_palette_idx_34 == 18",
+          "l35": "v.leaf_palette_idx_35 == 18",
+          "l36": "v.leaf_palette_idx_36 == 18",
+          "l37": "v.leaf_palette_idx_37 == 18",
+          "l38": "v.leaf_palette_idx_38 == 18",
+          "l39": "v.leaf_palette_idx_39 == 18",
+          "l40": "v.leaf_palette_idx_40 == 18",
+          "l41": "v.leaf_palette_idx_41 == 18",
+          "l42": "v.leaf_palette_idx_42 == 18",
+          "l43": "v.leaf_palette_idx_43 == 18",
+          "l44": "v.leaf_palette_idx_44 == 18",
+          "l45": "v.leaf_palette_idx_45 == 18",
+          "l46": "v.leaf_palette_idx_46 == 18",
+          "l47": "v.leaf_palette_idx_47 == 18",
+          "l48": "v.leaf_palette_idx_48 == 18",
+          "l49": "v.leaf_palette_idx_49 == 18",
+          "l50": "v.leaf_palette_idx_50 == 18",
+          "l51": "v.leaf_palette_idx_51 == 18",
+          "l52": "v.leaf_palette_idx_52 == 18",
+          "l53": "v.leaf_palette_idx_53 == 18",
+          "l54": "v.leaf_palette_idx_54 == 18",
+          "l55": "v.leaf_palette_idx_55 == 18",
+          "l56": "v.leaf_palette_idx_56 == 18",
+          "l57": "v.leaf_palette_idx_57 == 18",
+          "l58": "v.leaf_palette_idx_58 == 18",
+          "l59": "v.leaf_palette_idx_59 == 18",
+          "l60": "v.leaf_palette_idx_60 == 18",
+          "l61": "v.leaf_palette_idx_61 == 18",
+          "l62": "v.leaf_palette_idx_62 == 18",
+          "l63": "v.leaf_palette_idx_63 == 18"
+        }
+      ],
+      "uv_anim": {
+        "offset": [
+          "(math.mod(math.mod(v.data18, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data18, 32768) / 145) * 2) / 512.0"
+        ],
+        "scale": [
+          "2.0 / 512.0",
+          "2.0 / 512.0"
+        ]
+      }
+    },
+    "controller.render.crtrlabs_paint.painting_rot.tile.19": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "l0": "v.leaf_palette_idx_0 == 19",
+          "l1": "v.leaf_palette_idx_1 == 19",
+          "l2": "v.leaf_palette_idx_2 == 19",
+          "l3": "v.leaf_palette_idx_3 == 19",
+          "l4": "v.leaf_palette_idx_4 == 19",
+          "l5": "v.leaf_palette_idx_5 == 19",
+          "l6": "v.leaf_palette_idx_6 == 19",
+          "l7": "v.leaf_palette_idx_7 == 19",
+          "l8": "v.leaf_palette_idx_8 == 19",
+          "l9": "v.leaf_palette_idx_9 == 19",
+          "l10": "v.leaf_palette_idx_10 == 19",
+          "l11": "v.leaf_palette_idx_11 == 19",
+          "l12": "v.leaf_palette_idx_12 == 19",
+          "l13": "v.leaf_palette_idx_13 == 19",
+          "l14": "v.leaf_palette_idx_14 == 19",
+          "l15": "v.leaf_palette_idx_15 == 19",
+          "l16": "v.leaf_palette_idx_16 == 19",
+          "l17": "v.leaf_palette_idx_17 == 19",
+          "l18": "v.leaf_palette_idx_18 == 19",
+          "l19": "v.leaf_palette_idx_19 == 19",
+          "l20": "v.leaf_palette_idx_20 == 19",
+          "l21": "v.leaf_palette_idx_21 == 19",
+          "l22": "v.leaf_palette_idx_22 == 19",
+          "l23": "v.leaf_palette_idx_23 == 19",
+          "l24": "v.leaf_palette_idx_24 == 19",
+          "l25": "v.leaf_palette_idx_25 == 19",
+          "l26": "v.leaf_palette_idx_26 == 19",
+          "l27": "v.leaf_palette_idx_27 == 19",
+          "l28": "v.leaf_palette_idx_28 == 19",
+          "l29": "v.leaf_palette_idx_29 == 19",
+          "l30": "v.leaf_palette_idx_30 == 19",
+          "l31": "v.leaf_palette_idx_31 == 19",
+          "l32": "v.leaf_palette_idx_32 == 19",
+          "l33": "v.leaf_palette_idx_33 == 19",
+          "l34": "v.leaf_palette_idx_34 == 19",
+          "l35": "v.leaf_palette_idx_35 == 19",
+          "l36": "v.leaf_palette_idx_36 == 19",
+          "l37": "v.leaf_palette_idx_37 == 19",
+          "l38": "v.leaf_palette_idx_38 == 19",
+          "l39": "v.leaf_palette_idx_39 == 19",
+          "l40": "v.leaf_palette_idx_40 == 19",
+          "l41": "v.leaf_palette_idx_41 == 19",
+          "l42": "v.leaf_palette_idx_42 == 19",
+          "l43": "v.leaf_palette_idx_43 == 19",
+          "l44": "v.leaf_palette_idx_44 == 19",
+          "l45": "v.leaf_palette_idx_45 == 19",
+          "l46": "v.leaf_palette_idx_46 == 19",
+          "l47": "v.leaf_palette_idx_47 == 19",
+          "l48": "v.leaf_palette_idx_48 == 19",
+          "l49": "v.leaf_palette_idx_49 == 19",
+          "l50": "v.leaf_palette_idx_50 == 19",
+          "l51": "v.leaf_palette_idx_51 == 19",
+          "l52": "v.leaf_palette_idx_52 == 19",
+          "l53": "v.leaf_palette_idx_53 == 19",
+          "l54": "v.leaf_palette_idx_54 == 19",
+          "l55": "v.leaf_palette_idx_55 == 19",
+          "l56": "v.leaf_palette_idx_56 == 19",
+          "l57": "v.leaf_palette_idx_57 == 19",
+          "l58": "v.leaf_palette_idx_58 == 19",
+          "l59": "v.leaf_palette_idx_59 == 19",
+          "l60": "v.leaf_palette_idx_60 == 19",
+          "l61": "v.leaf_palette_idx_61 == 19",
+          "l62": "v.leaf_palette_idx_62 == 19",
+          "l63": "v.leaf_palette_idx_63 == 19"
+        }
+      ],
+      "uv_anim": {
+        "offset": [
+          "(math.mod(math.mod(v.data19, 32768), 145) * 2) / 512.0",
+          "(math.floor(math.mod(v.data19, 32768) / 145) * 2) / 512.0"
         ],
         "scale": [
           "2.0 / 512.0",

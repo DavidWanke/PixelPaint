@@ -3,26 +3,72 @@ const path = require('path');
 const { NAMESPACE } = require('../constants.js');
 
 /**
- * Generate pre-calculated leaf palette indices for optimal performance
+ * Generate data property caching script
+ * Cache all 32 data properties for efficient access throughout pre_animation
+ * @returns {string[]} Array of Molang statements to cache data0-data31 properties
+ */
+function generateDataPropertyCacheScript() {
+    const statements = [];
+
+    for (let i = 0; i < 32; i++) {
+        statements.push(`v.data${i} = query.property('${NAMESPACE}:data${i}');`);
+    }
+
+    return statements;
+}
+
+/**
+ * Generate pre-calculated leaf palette indices for optimal performance (v2.0 - 20 tiles)
  * Pre-calculate the palette index for each leaf to avoid repeated calculations in render controllers
+ * Indices 0-19: Extract from data0-data19 at bits 15-19 (5 bits)
+ * Indices 20-63: Extract from data20-data29 bitstream (5 bits each, tightly packed)
  * @returns {string[]} Array of Molang initialization statements
  */
 function generatePaletteIndexScript() {
     const statements = [];
 
-    // Pre-calculate power values as constants (avoid math.pow calls)
-    const powerValues = [1, 16, 256, 4096, 65536, 1048576]; // 16^0 through 16^5
-
     for (let leafId = 0; leafId < 64; leafId++) {
-        // Calculate which packed float contains this leaf's 4-bit index
-        const floatIndex = Math.floor(leafId / 6);
-        // Calculate position within that float (0-5)
-        const position = leafId % 6;
-        // Get the pre-calculated power value
-        const powerValue = powerValues[position];
+        let expression;
 
-        // Generate optimized palette index calculation with namespaced property
-        const statement = `v.leaf_palette_idx_${leafId} = math.floor(math.mod(math.floor(query.property('${NAMESPACE}:leaf_idx_f${floatIndex}') / ${powerValue}), 16));`;
+        if (leafId < 20) {
+            // Indices 0-19: Extract from data0-data19 at bits 15-19 (5 bits)
+            // Divide by 32768 (2^15) to shift right 15 bits, then mod 32 (2^5) to extract 5 bits
+            expression = `math.floor(math.mod(math.floor(v.data${leafId} / 32768), 32))`;
+        } else {
+            // Indices 20-63: Extract from data20-data29 bitstream
+            const localIndex = leafId - 20; // 0-43
+            const startBit = localIndex * 5; // Bit position in bitstream
+
+            // Calculate which data float(s) this index spans
+            const startFloat = 20 + Math.floor(startBit / 24);
+            const startBitInFloat = startBit % 24;
+            const endBit = startBit + 4; // 5 bits total (bits 0-4 of the index)
+            const endFloat = 20 + Math.floor(endBit / 24);
+
+            if (startFloat === endFloat) {
+                // Index is entirely within one float (simple case)
+                const divisor = Math.pow(2, startBitInFloat);
+                expression = `math.floor(math.mod(math.floor(v.data${startFloat} / ${divisor}), 32))`;
+            } else {
+                // Index spans two floats (complex case)
+                const bitsFromFirstFloat = 24 - startBitInFloat;
+                const bitsFromSecondFloat = 5 - bitsFromFirstFloat;
+
+                // Extract low bits from first float
+                const divisor1 = Math.pow(2, startBitInFloat);
+                const mask1 = Math.pow(2, bitsFromFirstFloat);
+                const expr1 = `math.floor(math.mod(math.floor(v.data${startFloat} / ${divisor1}), ${mask1}))`;
+
+                // Extract high bits from second float
+                const mask2 = Math.pow(2, bitsFromSecondFloat);
+                const expr2 = `math.floor(math.mod(v.data${endFloat}, ${mask2}))`;
+
+                // Combine: low_bits + (high_bits * 2^bitsFromFirstFloat)
+                expression = `${expr1} + ${expr2} * ${Math.pow(2, bitsFromFirstFloat)}`;
+            }
+        }
+
+        const statement = `v.leaf_palette_idx_${leafId} = ${expression};`;
         statements.push(statement);
     }
 
@@ -30,37 +76,18 @@ function generatePaletteIndexScript() {
 }
 
 /**
- * Generate rotation float property caching
- * Cache the 6 rotation float properties for efficient access by animations
- * @returns {string[]} Array of Molang statements to cache rotation properties
- */
-function generateRotationFloatCacheScript() {
-    const statements = [];
-
-    for (let i = 0; i < 6; i++) {
-        statements.push(`v.rot_f${i} = query.property('${NAMESPACE}:rotation_f${i}');`);
-    }
-
-    return statements;
-}
-
-/**
- * Generate palette_count extraction from rotation_f5
- * palette_count is packed at bit offset 8 (after 4 rotations × 2 bits each)
+ * Generate palette_count extraction from data29 (v2.0 - 20 tiles)
+ * palette_count is packed in data29 at bits 20-24 (5 bits for values 1-20)
+ * Uses cached v.data29 variable
  * @returns {string} Molang statement to extract palette_count
  */
 function generatePaletteCountScript() {
-    // rotation_f5 layout:
-    // bits 0-1: leaf 60 rotation
-    // bits 2-3: leaf 61 rotation
-    // bits 4-5: leaf 62 rotation
-    // bits 6-7: leaf 63 rotation
-    // bits 8-11: palette_count (0-15)
-    // bits 12-23: unused
+    // data29 layout:
+    // bits 0-19: packed palette indices (end of bitstream)
+    // bits 20-24: palette_count (5 bits, values 1-20)
 
-    // Use cached v.rot_f5 instead of query.property
-    // Divide by 256 (2^8) to shift right 8 bits, then mod 16 to extract 4 bits
-    return `v.palette_count = math.floor(math.mod(math.floor(v.rot_f5 / 256), 16));`;
+    // Divide by 1048576 (2^20) to shift right 20 bits, then mod 32 (2^5) to extract 5 bits
+    return `v.palette_count = math.floor(math.mod(math.floor(v.data29 / 1048576), 32));`;
 }
 
 /**
@@ -86,29 +113,29 @@ function generateCameraFacingScript() {
 }
 
 /**
- * Generate the complete painting_rot entity JSON
+ * Generate the complete painting_rot entity JSON (v2.0 - 20 tiles)
  * @returns {object} Complete entity structure
  */
 function generatePaintingRotEntity() {
-    console.log('🎨 Generating painting_rot entity with optimized palette indices...');
+    console.log('🎨 Generating painting_rot entity (v2.0 - 20 tiles) with optimized palette indices...');
 
-    // Generate camera-facing detection (2 statements)
+    // Generate data property caching (FIRST - cache all 32 data properties)
+    const dataPropertyCache = generateDataPropertyCacheScript();
+
+    // Generate camera-facing detection (camera facing + distance scale)
     const cameraFacingScript = generateCameraFacingScript();
 
-    // Generate pre-calculated palette indices for all 64 leaves
+    // Generate pre-calculated palette indices for all 64 leaves (uses cached v.data0-v.data29)
     const paletteIndexScript = generatePaletteIndexScript();
 
-    // Generate rotation float caching (6 statements)
-    const rotationFloatCache = generateRotationFloatCacheScript();
-
-    // Generate palette_count extraction (uses cached v.rot_f5)
+    // Generate palette_count extraction from data29 (uses cached v.data29)
     const paletteCountScript = generatePaletteCountScript();
 
     // Combine all initialize statements
     const initializeScript = [
+        ...dataPropertyCache,
         ...cameraFacingScript,
         ...paletteIndexScript,
-        ...rotationFloatCache,
         paletteCountScript
     ];
 
@@ -139,18 +166,18 @@ function generatePaintingRotEntity() {
     };
 
     // Add conditional render controllers (only render active palette slots when facing camera)
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
         const condition = `v.is_facing_camera && v.palette_count > ${i}`;
         const controller = {};
         controller[`controller.render.${NAMESPACE}.painting_rot.tile.${i}`] = condition;
         entity["minecraft:client_entity"].description.render_controllers.push(controller);
     }
 
-    console.log(`👁️  Added camera-facing detection (${cameraFacingScript.length} statements - 90° FOV + distance scale 32-48 blocks)`);
-    console.log(`🧮 Pre-calculated ${paletteIndexScript.length} leaf palette indices`);
-    console.log(`💾 Cached ${rotationFloatCache.length} rotation float properties`);
-    console.log(`📊 Extracted palette_count from v.rot_f5 (1 statement)`);
-    console.log(`🎭 Added 15 conditional render controllers (gated by v.is_facing_camera && v.palette_count)`);
+    console.log(`💾 Cached ${dataPropertyCache.length} data properties (v.data0-v.data31)`);
+    console.log(`👁️  Added camera-facing detection (${cameraFacingScript.length} statements - FOV + distance scale 32-48 blocks)`);
+    console.log(`🧮 Pre-calculated ${paletteIndexScript.length} leaf palette indices (5-bit extraction, using cached v.data)`);
+    console.log(`📊 Extracted palette_count from data29 bits 20-24 (1 statement, using cached v.data29)`);
+    console.log(`🎭 Added 20 conditional render controllers (gated by v.is_facing_camera && v.palette_count)`);
     console.log(`🔄 Added rotation animation reference`);
     console.log(`✅ Total pre-animation statements: ${initializeScript.length}`);
 
@@ -180,69 +207,75 @@ function writeEntityFile(outputPath = null) {
 
     console.log(`🎯 Entity file saved: ${outputPath}`);
     console.log(`📝 Namespace: ${NAMESPACE}`);
-    console.log(`🧮 Optimized entity: ${entity["minecraft:client_entity"].description.scripts.pre_animation.length} pre-animation statements (2 camera-facing + 64 palette + 6 rotation cache + 1 palette_count)`);
+    console.log(`🧮 Optimized entity: ${entity["minecraft:client_entity"].description.scripts.pre_animation.length} pre-animation statements (32 data cache + camera-facing + 64 palette + 1 palette_count)`);
 }
 
 /**
- * Print information about the generated entity
+ * Print information about the generated entity (v2.0 - 20 tiles)
  */
 function printEntityInfo() {
-    console.log('\n📚 ENTITY GENERATION INFO (painting_rot):');
-    console.log('=========================================');
+    console.log('\n📚 ENTITY GENERATION INFO (painting_rot v2.0 - 20 tiles):');
+    console.log('========================================================');
 
     console.log('\n🧮 OPTIMIZED ENTITY DESIGN:');
-    console.log('Pre-calculated palette indices for maximum performance:');
+    console.log('Data property caching for maximum performance:');
+    console.log('  • 32 cached properties: v.data0 through v.data31');
+    console.log('  • All data properties queried ONCE at the start of pre_animation');
+    console.log('  • Reduces ~150 property queries per frame to just 32');
+    console.log('  • ~80% reduction in property query overhead');
+    console.log('');
+    console.log('Pre-calculated palette indices:');
     console.log('  • 64 variables: v.leaf_palette_idx_0 through v.leaf_palette_idx_63');
     console.log('  • Each leaf\'s palette index calculated once in initialize');
+    console.log('  • Indices 0-19: Extract from cached v.data0-19 (bits 15-19, simple)');
+    console.log('  • Indices 20-63: Extract from cached v.data20-29 bitstream (complex)');
     console.log('  • Render controllers use simple variable comparisons');
-    console.log('  • Eliminates 960+ repeated calculations per frame (64 leaves × 15 RCs)');
+    console.log('  • Eliminates 1280+ repeated calculations per frame (64 leaves × 20 RCs)');
 
     console.log('\n📊 PALETTE COUNT:');
-    console.log('  • v.palette_count extracted from rotation_f5 (bits 8-11)');
+    console.log('  • v.palette_count extracted from data29 (bits 20-24)');
+    console.log('  • 5-bit value supporting 1-20 palette slots (upgraded from 1-15)');
     console.log('  • Used to gate render controllers (only active slots render)');
-    console.log('  • Saves performance when fewer than 15 palette slots used');
+    console.log('  • Saves performance when fewer than 20 palette slots used');
 
     console.log('\n🔄 ROTATION SYSTEM:');
-    console.log('  • 6 cached rotation float variables: v.rot_f0 through v.rot_f5');
-    console.log('  • Animation uses cached variables (64 property reads → 6)');
-    console.log('  • Minimal init overhead (6 statements)');
-    console.log('  • Much faster than 64 individual property queries');
+    console.log('  • Rotations extracted directly in animation (no caching)');
+    console.log('  • Rotations 0-19: data0-19 bits 20-21');
+    console.log('  • Rotations 20-39: data0-19 bits 22-23');
+    console.log('  • Rotations 40-51: data30 (12 × 2 bits)');
+    console.log('  • Rotations 52-63: data31 (12 × 2 bits)');
 
     console.log('\n🎭 RENDER CONTROLLERS:');
     console.log('Conditional render controllers (performance optimized):');
     for (let i = 0; i < 3; i++) {
         console.log(`  • controller.render.${NAMESPACE}.painting_rot.tile.${i}: "v.palette_count > ${i}"`);
     }
-    console.log('  • ... through tile.14 with v.palette_count > 14');
-    console.log('  Only active palette slots render!');
+    console.log('  • ... through tile.19 with v.palette_count > 19');
+    console.log('  Only active palette slots render (20 slots total)!');
 
     console.log('\n📐 GEOMETRY, TEXTURE & ANIMATION:');
     console.log(`  • Geometry: geometry.${NAMESPACE}.painting_rot (t.painting_rot.geo.json)`);
     console.log('  • Texture: t_tile_atlas.png (512×512 canonical atlas)');
     console.log(`  • Animation: animation.${NAMESPACE}.painting_rot.rotate`);
-    console.log('  • Animation handles bone rotation based on rotation properties');
+    console.log('  • Animation extracts rotations directly from data0-31 properties');
 
-    console.log('\n🔗 PROPERTY SYSTEM:');
-    console.log('Entity will read these properties from behavior:');
-    console.log('  • tp0-tp14: Canonical tile IDs for palette slots (15 floats)');
-    console.log('  • leaf_idx_f0-leaf_idx_f10: Packed leaf indices (11 floats)');
-    console.log('  • rotation_f0-rotation_f5: Packed rotation values + palette_count (6 floats)');
+    console.log('\n🔗 PROPERTY SYSTEM (v2.0):');
+    console.log('Entity reads these properties from behavior:');
+    console.log('  • data0-data19:  Atlas + palette_idx + 2 rotations each (20 floats)');
+    console.log('  • data20-data29: Remaining 44 palette indices (5-bit) + palette_count (10 floats)');
+    console.log('  • data30-data31: Remaining 24 rotations (2 floats)');
     console.log('  Total: 32 floats exactly!');
 
-    console.log('\n📦 ROTATION_F5 PACKING:');
-    console.log('  • Bits 0-1:   leaf 60 rotation (2 bits)');
-    console.log('  • Bits 2-3:   leaf 61 rotation (2 bits)');
-    console.log('  • Bits 4-5:   leaf 62 rotation (2 bits)');
-    console.log('  • Bits 6-7:   leaf 63 rotation (2 bits)');
-    console.log('  • Bits 8-11:  palette_count (4 bits, 0-15)');
-    console.log('  • Bits 12-23: unused (12 bits spare)');
+    console.log('\n📦 DATA29 PACKING:');
+    console.log('  • Bits 0-19:  End of palette index bitstream');
+    console.log('  • Bits 20-24: palette_count (5 bits, values 1-20)');
 }
 
 // Export functions for use as module
 module.exports = {
     generatePaintingRotEntity,
+    generateDataPropertyCacheScript,
     generatePaletteIndexScript,
-    generateRotationFloatCacheScript,
     generatePaletteCountScript,
     writeEntityFile,
     printEntityInfo

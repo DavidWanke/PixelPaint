@@ -1,5 +1,5 @@
 {
-	"format_version": "1.12.0",
+	"format_version": "1.21.0",
 	"minecraft:geometry": [
 		{
 			"description": {
@@ -8,2321 +8,910 @@
 				"texture_height": 2,
 				"visible_bounds_width": 2,
 				"visible_bounds_height": 1.5,
-				"visible_bounds_offset": [
-					0,
-					0.25,
-					0
-				]
+				"visible_bounds_offset": [0, 0.25, 0]
 			},
 			"bones": [
 				{
 					"name": "root",
-					"pivot": [
-						0,
-						0,
-						0
-					]
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "head",
+					"parent": "root",
+					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "l0",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [-7, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l1",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [-5, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l2",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [-3, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l3",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [-1, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l4",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [1, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l5",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [3, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l6",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [5, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l7",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						7
-					],
+					"parent": "head",
+					"pivot": [7, 0, 7],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, 6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l8",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [-7, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l9",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [-5, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l10",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [-3, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l11",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [-1, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l12",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [1, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l13",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [3, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l14",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [5, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l15",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						5
-					],
+					"parent": "head",
+					"pivot": [7, 0, 5],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, 4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l16",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [-7, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l17",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [-5, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l18",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [-3, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l19",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [-1, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l20",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [1, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l21",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [3, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l22",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [5, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l23",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						3
-					],
+					"parent": "head",
+					"pivot": [7, 0, 3],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, 2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l24",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [-7, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l25",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [-5, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l26",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [-3, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l27",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [-1, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l28",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [1, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l29",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [3, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l30",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [5, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l31",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						1
-					],
+					"parent": "head",
+					"pivot": [7, 0, 1],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								0
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, 0],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l32",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [-7, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l33",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [-5, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l34",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [-3, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l35",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [-1, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l36",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [1, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l37",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [3, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l38",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [5, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l39",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						-1
-					],
+					"parent": "head",
+					"pivot": [7, 0, -1],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								-2
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, -2],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l40",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [-7, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l41",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [-5, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l42",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [-3, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l43",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [-1, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l44",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [1, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l45",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [3, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l46",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [5, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l47",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						-3
-					],
+					"parent": "head",
+					"pivot": [7, 0, -3],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								-4
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, -4],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l48",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [-7, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l49",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [-5, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l50",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [-3, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l51",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [-1, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l52",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [1, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l53",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [3, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l54",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [5, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l55",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						-5
-					],
+					"parent": "head",
+					"pivot": [7, 0, -5],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								-6
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, -6],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l56",
-					"parent": "root",
-					"pivot": [
-						-7,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [-7, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								-8,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-8, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l57",
-					"parent": "root",
-					"pivot": [
-						-5,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [-5, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								-6,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-6, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l58",
-					"parent": "root",
-					"pivot": [
-						-3,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [-3, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								-4,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-4, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l59",
-					"parent": "root",
-					"pivot": [
-						-1,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [-1, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								-2,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [-2, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l60",
-					"parent": "root",
-					"pivot": [
-						1,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [1, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								0,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [0, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l61",
-					"parent": "root",
-					"pivot": [
-						3,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [3, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								2,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [2, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l62",
-					"parent": "root",
-					"pivot": [
-						5,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [5, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								4,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [4, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
 				},
 				{
 					"name": "l63",
-					"parent": "root",
-					"pivot": [
-						7,
-						0,
-						-7
-					],
+					"parent": "head",
+					"pivot": [7, 0, -7],
 					"cubes": [
 						{
-							"origin": [
-								6,
-								0.1,
-								-8
-							],
-							"size": [
-								2,
-								0,
-								2
-							],
+							"origin": [6, 0.1, -8],
+							"size": [2, 0, 2],
 							"uv": {
-								"up": {
-									"uv": [
-										2,
-										2
-									],
-									"uv_size": [
-										-2,
-										-2
-									],
-									"uv_rotation": 180
-								}
+								"up": {"uv": [2, 2], "uv_size": [-2, -2], "uv_rotation": 180}
 							}
 						}
 					]
