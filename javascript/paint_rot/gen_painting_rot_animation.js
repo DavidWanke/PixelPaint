@@ -2,71 +2,34 @@ const fs = require('fs');
 const path = require('path');
 const { NAMESPACE } = require('../constants.js');
 
-/**
- * Generate rotation extraction Molang for a specific leaf (v2.0 - 20 tiles)
- * Uses cached v.data0-v.data31 variables from pre_animation for optimal performance
- * Rotations are stored in different locations:
- *   - Rotations 0-19:  data0-data19 at bits 20-21
- *   - Rotations 20-39: data0-data19 at bits 22-23
- *   - Rotations 40-51: data30 (12 rotations × 2 bits)
- *   - Rotations 52-63: data31 (12 rotations × 2 bits)
- * @param {number} leafId - Leaf ID (0-63)
- * @returns {string} Molang expression to extract rotation (0-3)
- */
-function generateRotationExtraction(leafId) {
-    if (leafId < 20) {
-        // Rotations 0-19: Extract from cached v.data0-v.data19 at bits 20-21
-        // Divide by 1048576 (2^20) to shift right 20 bits, then mod 4 to extract 2 bits
-        return `math.floor(math.mod(math.floor(v.data${leafId} / 1048576), 4))`;
-    } else if (leafId < 40) {
-        // Rotations 20-39: Extract from cached v.data0-v.data19 at bits 22-23
-        // Map leafId 20-39 to data0-data19
-        const dataIndex = leafId - 20;
-        // Divide by 4194304 (2^22) to shift right 22 bits, then mod 4 to extract 2 bits
-        return `math.floor(math.mod(math.floor(v.data${dataIndex} / 4194304), 4))`;
-    } else if (leafId < 52) {
-        // Rotations 40-51: Extract from cached v.data30
-        const position = leafId - 40; // 0-11
-        const powerValues = [1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304];
-        const powerValue = powerValues[position];
-        return `math.floor(math.mod(math.floor(v.data30 / ${String(powerValue)}), 4))`;
-    } else {
-        // Rotations 52-63: Extract from cached v.data31
-        const position = leafId - 52; // 0-11
-        const powerValues = [1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304];
-        const powerValue = powerValues[position];
-        return `math.floor(math.mod(math.floor(v.data31 / ${String(powerValue)}), 4))`;
-    }
-}
+// v3.0: NO extraction needed - rotations are direct variables v.r0-v.r63
 
 function generatePaintingRotAnimation() {
     /**
-     * Generate rotation animation for painting_rot model (v2.0 - 20 tiles).
-     * Each of the 64 leaf bones gets Y-axis rotation using cached v.data variables.
-     * Rotations stored in: data0-19 (bits 20-23), data30-31 (all bits).
+     * Generate rotation animation for painting_rot model (v3.0 - playAnimation).
+     * Each of the 64 leaf bones gets Y-axis rotation using direct v.r0-v.r63 variables.
+     * Global rotations use direct v.rx and v.ry variables.
      *
-     * @returns {object} The complete animation structure
+     * @returns {object} The complete animation structure with rotate + set_vars animations
      */
 
-    console.log('🎬 Generating painting_rot rotation animation (v2.0 - 20 tiles)...');
-    console.log('📊 Extracting rotations from cached v.data0-v.data31 variables');
+    console.log('🎬 Generating painting_rot animations (v3.0 - playAnimation)...');
+    console.log('📊 Using direct variables v.r0-v.r63 (no extraction!)');
 
     const bones = {};
 
-    // Add root bone with distance scale
+    // Add root bone with distance scale and global rotations
     bones["root"] = {
         "scale": "v.distance_scale",
-        "rotation": ["v.rotation_x_degrees", "v.rotation_y_degrees", 0]
+        "rotation": ["v.rx * 22.5", "v.ry * 22.5", 0]
     };
 
-    // Generate rotation for all 64 leaves
+    // Generate rotation for all 64 leaves using direct variables
     for (let leafId = 0; leafId < 64; leafId++) {
-        const rotationExtraction = generateRotationExtraction(leafId);
-
         bones[`l${leafId}`] = {
             "rotation": [
                 0,
-                `${rotationExtraction} * -90`,  // Extract rotation (0-3) and multiply by -90 degrees (CCW)
+                `v.r${leafId} * -90`,  // Direct variable access (rotation has 180° offset baked in)
                 0
             ]
         };
@@ -78,13 +41,19 @@ function generatePaintingRotAnimation() {
             [`animation.${NAMESPACE}.painting_rot.rotate`]: {
                 "loop": "hold_on_last_frame",
                 "bones": bones
+            },
+            // Dummy animation for playAnimation stopExpression
+            [`animation.${NAMESPACE}.painting_rot.set_vars`]: {
+                "loop": false
             }
         }
     };
 
-    console.log(`✅ Generated rotation animation for root + 64 leaves`);
+    console.log(`✅ Generated rotate animation for root + 64 leaves`);
+    console.log(`✅ Generated set_vars animation (dummy for playAnimation)`);
     console.log(`📏 Root bone scales with v.distance_scale (fade 32-48 blocks)`);
-    console.log(`🔧 Each leaf bone extracts rotation from cached v.data0-v.data31 variables`);
+    console.log(`🔄 Root bone rotates with v.rx * 22.5° and v.ry * 22.5°`);
+    console.log(`🔧 Each leaf bone uses direct v.r${0}-v.r${63} variables`);
 
     return animation;
 }
@@ -112,8 +81,9 @@ function writeAnimationFile(outputPath = null) {
     fs.writeFileSync(outputPath, JSON.stringify(animation, null, '\t'));
 
     console.log(`🎯 Animation saved: ${outputPath}`);
-    console.log(`🔄 Animation identifier: animation.${NAMESPACE}.painting_rot.rotate`);
-    console.log(`📊 Bone rotations: 64 leaves (using cached v.data0-v.data31)`);
+    console.log(`🔄 Rotate animation: animation.${NAMESPACE}.painting_rot.rotate`);
+    console.log(`🔄 Set vars animation: animation.${NAMESPACE}.painting_rot.set_vars`);
+    console.log(`📊 Bone rotations: 64 leaves (using direct v.r0-v.r63 variables)`);
 }
 
 // Export functions for use as module

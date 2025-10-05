@@ -1,4 +1,4 @@
-import { Dimension, Direction, Entity, Vector3 } from "@minecraft/server";
+import { Dimension, Direction, Entity, system, Vector3 } from "@minecraft/server";
 import { DistanceOptimizationSystem } from "./DistanceOptimizationSystem";
 
 /**
@@ -305,9 +305,14 @@ export function spawnPaintingOnFace(
             // Spawn painting entity
             const entity = dimension.spawnEntity("crtrlabs_paint:painting_rot", pos);
 
-            // Set painting data with rotation using DistanceOptimizationSystem
-            const optimizer = new DistanceOptimizationSystem(entity);
-            optimizer.setImage(chunk, 0, rotationX, rotationY);
+            
+
+            // execute this one tick later to ensure entity is fully initialized
+            system.run(() => {
+                // Set painting data with rotation using DistanceOptimizationSystem
+                const optimizer = new DistanceOptimizationSystem(entity);
+                optimizer.setImage(chunk, 0, rotationX, rotationY);
+            });
 
             entities.push(entity);
         }

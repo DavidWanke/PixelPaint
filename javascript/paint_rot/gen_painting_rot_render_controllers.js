@@ -29,16 +29,15 @@ function loadGridSize() {
 }
 
 /**
- * Generate visibility expression for a specific leaf in a render controller
- * Uses pre-calculated palette index variable for maximum performance
+ * Generate visibility expression for a specific leaf in a render controller (v3.0)
+ * Uses direct palette index variable (no extraction needed!)
  * @param {number} leafId - Leaf ID (0-63)
- * @param {number} rcIndex - Render controller index (0-14)
+ * @param {number} rcIndex - Render controller index (0-19)
  * @returns {string} Molang expression for leaf visibility
  */
 function generateLeafVisibility(leafId, rcIndex) {
-    // Use pre-calculated palette index variable from entity initialize
-    // This is much faster than repeating the complex calculation in every RC
-    return `v.leaf_palette_idx_${leafId} == ${rcIndex}`;
+    // Use direct variable set via playAnimation - simple and fast!
+    return `v.p${leafId} == ${rcIndex}`;
 }
 
 /**
@@ -58,16 +57,15 @@ function generatePartVisibility(rcIndex) {
 }
 
 /**
- * Generate a single render controller for palette index N (v2.0 - 20 tiles)
- * Uses cached v.data0-v.data19 variables from pre_animation for optimal performance
+ * Generate a single render controller for palette index N (v3.0 - playAnimation)
+ * Uses direct v.a0-v.a19 variables (no extraction needed!)
  * @param {number} rcIndex - Render controller index (0-19)
  * @param {number} gridSize - Grid size for atlas (loaded from cache)
  * @returns {object} Complete render controller structure
  */
 function generateRenderController(rcIndex, gridSize) {
-    // Atlas index is stored in cached v.data0-v.data19 at bits 0-14 (15 bits)
-    // Extract by: mod 32768 (2^15) to get lower 15 bits
-    const atlasIndexExpression = `math.mod(v.data${rcIndex}, 32768)`;
+    // Atlas index is a direct variable - no extraction needed!
+    const atlasIndexExpression = `v.a${rcIndex}`;
 
     return {
         "geometry": "Geometry.default",
@@ -83,7 +81,7 @@ function generateRenderController(rcIndex, gridSize) {
         "uv_anim": {
             // UV offset and scale for atlas tile selection
             // For 512×512 atlas with canonical tiles
-            // Atlas index extracted from cached v.data0-19 (bits 0-14)
+            // Atlas index from direct variable v.a0-v.a19
             "offset": [
                 `(math.mod(${atlasIndexExpression}, ${gridSize}) * 2) / ${ATLAS_SIZE}.0`,
                 `(math.floor(${atlasIndexExpression} / ${gridSize}) * 2) / ${ATLAS_SIZE}.0`
@@ -97,7 +95,7 @@ function generateRenderController(rcIndex, gridSize) {
 }
 
 /**
- * Generate the complete render controllers JSON with all 20 controllers (v2.0)
+ * Generate the complete render controllers JSON with all 20 controllers (v3.0 - playAnimation)
  * @param {number} gridSize - Optional grid size override (loads from cache if not provided)
  * @returns {object} Complete render controllers structure
  */
@@ -107,7 +105,7 @@ function generateRenderControllers(gridSize = null) {
         gridSize = loadGridSize();
     }
 
-    console.log('🎨 Generating 20 render controllers for painting_rot (v2.0 - 20 tiles)...');
+    console.log('🎨 Generating 20 render controllers for painting_rot (v3.0 - playAnimation)...');
     console.log(`📐 Using grid size: ${gridSize}×${gridSize}`);
 
     const renderControllers = {
@@ -156,27 +154,27 @@ function writeRenderControllersFile(outputPath = null, gridSize = null) {
 }
 
 /**
- * Print information about the render controller system (v2.0 - 20 tiles)
+ * Print information about the render controller system (v3.0 - playAnimation)
  */
 function printRenderControllerInfo() {
-    console.log('\n📚 RENDER CONTROLLER SYSTEM INFO (painting_rot v2.0 - 20 tiles):');
-    console.log('=================================================================');
+    console.log('\n📚 RENDER CONTROLLER SYSTEM INFO (painting_rot v3.0 - playAnimation):');
+    console.log('====================================================================');
 
     console.log('\n🎭 MULTI-RENDER CONTROLLER STRATEGY:');
-    console.log('• 20 render controllers (one per palette slot) - upgraded from 15');
+    console.log('• 20 render controllers (one per palette slot)');
     console.log('• Each RC shows leaves that use its palette tile');
     console.log('• Each RC has fixed UV coordinates for its canonical tile');
 
-    console.log('\n🔍 VISIBILITY LOGIC:');
+    console.log('\n🔍 VISIBILITY LOGIC (SIMPLIFIED):');
     console.log('For each leaf (l0-l63), render controller N shows it if:');
-    console.log('  1. Extract leaf\'s 5-bit palette index from packed properties');
-    console.log('  2. Compare: leaf_palette_idx == N');
-    console.log('  3. Uses pre-calculated palette index variables (simple comparisons)');
+    console.log('  • v.p{leafId} == N');
+    console.log('  • Direct variable comparison - no extraction needed!');
+    console.log('  • Example: Render controller 0 shows leaf 5 if v.p5 == 0');
 
-    console.log('\n🗺️ UV MAPPING STRATEGY:');
+    console.log('\n🗺️ UV MAPPING STRATEGY (SIMPLIFIED):');
     console.log('Each render controller N:');
-    console.log('  • Reads atlas index from cached v.data[N] bits 0-14 (15 bits)');
-    console.log('  • Extracts with: math.mod(v.data[N], 32768)');
+    console.log('  • Reads atlas index from direct variable v.a{N}');
+    console.log('  • No extraction, no bit math - just v.a0, v.a1, etc.');
 
     // Try to load grid size for accurate info
     let gridSizeForInfo = 'GRID_SIZE';
@@ -187,7 +185,7 @@ function printRenderControllerInfo() {
         // Cache not available
     }
 
-    console.log(`  • Calculates atlas position: tileX = atlasIndex % ${gridSizeForInfo}, tileY = floor(atlasIndex / ${gridSizeForInfo})`);
+    console.log(`  • Calculates atlas position: tileX = v.a{N} % ${gridSizeForInfo}, tileY = floor(v.a{N} / ${gridSizeForInfo})`);
     console.log(`  • Maps to UV: offset = [(tileX*2)/${ATLAS_SIZE}, (tileY*2)/${ATLAS_SIZE}]`);
     console.log(`  • Scale: [2/${ATLAS_SIZE}, 2/${ATLAS_SIZE}] for 2×2 pixel tiles`);
 
@@ -209,16 +207,17 @@ function printRenderControllerInfo() {
 
     console.log('\n🔄 ROTATION SYSTEM:');
     console.log('• Rotation applied via animation (not in render controllers)');
-    console.log('• Each leaf bone extracts rotation from cached v.data0-v.data31 variables');
+    console.log('• Each leaf bone uses direct v.r0-v.r63 variables');
     console.log('• 0°/90°/180°/270° rotations (0-3 values)');
+    console.log('• No extraction - just multiply by -90°');
 
-    console.log('\n🔗 PROPERTIES USED (v2.0):');
-    console.log('• data0-data19: Atlas index (bits 0-14) + palette_idx (bits 15-19) + 2 rotations (20 floats)');
-    console.log('• data20-data29: Remaining 44 palette indices (5-bit) + palette_count (10 floats)');
-    console.log('• data30-data31: Remaining 24 rotations (2 floats)');
-    console.log('• Total: 32 floats (all cached as v.data0-v.data31 in pre_animation)');
-    console.log('• Pre-calculated: v.leaf_palette_idx_0 through v.leaf_palette_idx_63');
-    console.log('• Render controllers use cached v.data variables (no direct property queries)');
+    console.log('\n🔗 VARIABLES USED (v3.0):');
+    console.log('• v.a0-v.a19: Atlas indices (20 variables, direct access)');
+    console.log('• v.p0-v.p63: Palette indices (64 variables, direct access)');
+    console.log('• v.r0-v.r63: Rotations (64 variables, used in animation)');
+    console.log('• v.pc: Palette count (used for render controller gating)');
+    console.log('• Total: 151 variables (all set via playAnimation stopExpression)');
+    console.log('• NO entity properties, NO extraction, NO caching!');
 }
 
 // Export functions for use as module

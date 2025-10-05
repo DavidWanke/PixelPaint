@@ -1,6 +1,5 @@
 import { Direction, ItemComponentUseEvent, world } from "@minecraft/server";
 import { spawnPaintingOnFace } from "../painting/PaintingSystem";
-import { TileDataSystem } from "../painting/TileDataSystem";
 import { generateFromPlayerPosition } from "../painting/GenerateFromTerrain";
 
 /**

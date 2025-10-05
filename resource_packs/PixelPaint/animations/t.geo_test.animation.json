@@ -1,0 +1,13 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.crtrlabs_paint.geo_test.move": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [0, "v.test_expression", 0]
+				}
+			}
+		}
+	}
+}

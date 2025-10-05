@@ -76,12 +76,12 @@ function getCanonicalRotation(colors) {
         }
     }
 
-    // Return inverse rotation: if canonical is at index i, we need (4-i) % 4 to rotate back
-    const inverseRotation = (4 - minIndex) % 4;
-
+    // Return rotation index with 180° offset to account for UV/model coordinate system
+    // The working formula is: v.r * -90 + 180, which equals (minIndex + 2) * -90
+    // So we pre-add the +2 here to keep animation simple as v.r * -90
     return {
         canonical: minRotation,
-        rotation: inverseRotation  // 0-3: how many 90° CW rotations to apply at runtime
+        rotation: (minIndex + 2) % 4  // 0-3: rotation with 180° offset for coordinate system
     };
 }
 

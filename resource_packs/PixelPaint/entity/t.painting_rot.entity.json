@@ -13,117 +13,170 @@
         "default": "geometry.crtrlabs_paint.painting_rot"
       },
       "animations": {
-        "rotate": "animation.crtrlabs_paint.painting_rot.rotate"
+        "rotate": "animation.crtrlabs_paint.painting_rot.rotate",
+        "set_vars": "animation.crtrlabs_paint.painting_rot.set_vars"
       },
       "scripts": {
+        "initialize": [
+          "v.a0=0;",
+          "v.a1=0;",
+          "v.a2=0;",
+          "v.a3=0;",
+          "v.a4=0;",
+          "v.a5=0;",
+          "v.a6=0;",
+          "v.a7=0;",
+          "v.a8=0;",
+          "v.a9=0;",
+          "v.a10=0;",
+          "v.a11=0;",
+          "v.a12=0;",
+          "v.a13=0;",
+          "v.a14=0;",
+          "v.a15=0;",
+          "v.a16=0;",
+          "v.a17=0;",
+          "v.a18=0;",
+          "v.a19=0;",
+          "v.p0=0;",
+          "v.p1=0;",
+          "v.p2=0;",
+          "v.p3=0;",
+          "v.p4=0;",
+          "v.p5=0;",
+          "v.p6=0;",
+          "v.p7=0;",
+          "v.p8=0;",
+          "v.p9=0;",
+          "v.p10=0;",
+          "v.p11=0;",
+          "v.p12=0;",
+          "v.p13=0;",
+          "v.p14=0;",
+          "v.p15=0;",
+          "v.p16=0;",
+          "v.p17=0;",
+          "v.p18=0;",
+          "v.p19=0;",
+          "v.p20=0;",
+          "v.p21=0;",
+          "v.p22=0;",
+          "v.p23=0;",
+          "v.p24=0;",
+          "v.p25=0;",
+          "v.p26=0;",
+          "v.p27=0;",
+          "v.p28=0;",
+          "v.p29=0;",
+          "v.p30=0;",
+          "v.p31=0;",
+          "v.p32=0;",
+          "v.p33=0;",
+          "v.p34=0;",
+          "v.p35=0;",
+          "v.p36=0;",
+          "v.p37=0;",
+          "v.p38=0;",
+          "v.p39=0;",
+          "v.p40=0;",
+          "v.p41=0;",
+          "v.p42=0;",
+          "v.p43=0;",
+          "v.p44=0;",
+          "v.p45=0;",
+          "v.p46=0;",
+          "v.p47=0;",
+          "v.p48=0;",
+          "v.p49=0;",
+          "v.p50=0;",
+          "v.p51=0;",
+          "v.p52=0;",
+          "v.p53=0;",
+          "v.p54=0;",
+          "v.p55=0;",
+          "v.p56=0;",
+          "v.p57=0;",
+          "v.p58=0;",
+          "v.p59=0;",
+          "v.p60=0;",
+          "v.p61=0;",
+          "v.p62=0;",
+          "v.p63=0;",
+          "v.r0=0;",
+          "v.r1=0;",
+          "v.r2=0;",
+          "v.r3=0;",
+          "v.r4=0;",
+          "v.r5=0;",
+          "v.r6=0;",
+          "v.r7=0;",
+          "v.r8=0;",
+          "v.r9=0;",
+          "v.r10=0;",
+          "v.r11=0;",
+          "v.r12=0;",
+          "v.r13=0;",
+          "v.r14=0;",
+          "v.r15=0;",
+          "v.r16=0;",
+          "v.r17=0;",
+          "v.r18=0;",
+          "v.r19=0;",
+          "v.r20=0;",
+          "v.r21=0;",
+          "v.r22=0;",
+          "v.r23=0;",
+          "v.r24=0;",
+          "v.r25=0;",
+          "v.r26=0;",
+          "v.r27=0;",
+          "v.r28=0;",
+          "v.r29=0;",
+          "v.r30=0;",
+          "v.r31=0;",
+          "v.r32=0;",
+          "v.r33=0;",
+          "v.r34=0;",
+          "v.r35=0;",
+          "v.r36=0;",
+          "v.r37=0;",
+          "v.r38=0;",
+          "v.r39=0;",
+          "v.r40=0;",
+          "v.r41=0;",
+          "v.r42=0;",
+          "v.r43=0;",
+          "v.r44=0;",
+          "v.r45=0;",
+          "v.r46=0;",
+          "v.r47=0;",
+          "v.r48=0;",
+          "v.r49=0;",
+          "v.r50=0;",
+          "v.r51=0;",
+          "v.r52=0;",
+          "v.r53=0;",
+          "v.r54=0;",
+          "v.r55=0;",
+          "v.r56=0;",
+          "v.r57=0;",
+          "v.r58=0;",
+          "v.r59=0;",
+          "v.r60=0;",
+          "v.r61=0;",
+          "v.r62=0;",
+          "v.r63=0;",
+          "v.pc=0;",
+          "v.rx=0;",
+          "v.ry=0;"
+        ],
         "pre_animation": [
-          "v.data0 = query.property('crtrlabs_paint:data0');",
-          "v.data1 = query.property('crtrlabs_paint:data1');",
-          "v.data2 = query.property('crtrlabs_paint:data2');",
-          "v.data3 = query.property('crtrlabs_paint:data3');",
-          "v.data4 = query.property('crtrlabs_paint:data4');",
-          "v.data5 = query.property('crtrlabs_paint:data5');",
-          "v.data6 = query.property('crtrlabs_paint:data6');",
-          "v.data7 = query.property('crtrlabs_paint:data7');",
-          "v.data8 = query.property('crtrlabs_paint:data8');",
-          "v.data9 = query.property('crtrlabs_paint:data9');",
-          "v.data10 = query.property('crtrlabs_paint:data10');",
-          "v.data11 = query.property('crtrlabs_paint:data11');",
-          "v.data12 = query.property('crtrlabs_paint:data12');",
-          "v.data13 = query.property('crtrlabs_paint:data13');",
-          "v.data14 = query.property('crtrlabs_paint:data14');",
-          "v.data15 = query.property('crtrlabs_paint:data15');",
-          "v.data16 = query.property('crtrlabs_paint:data16');",
-          "v.data17 = query.property('crtrlabs_paint:data17');",
-          "v.data18 = query.property('crtrlabs_paint:data18');",
-          "v.data19 = query.property('crtrlabs_paint:data19');",
-          "v.data20 = query.property('crtrlabs_paint:data20');",
-          "v.data21 = query.property('crtrlabs_paint:data21');",
-          "v.data22 = query.property('crtrlabs_paint:data22');",
-          "v.data23 = query.property('crtrlabs_paint:data23');",
-          "v.data24 = query.property('crtrlabs_paint:data24');",
-          "v.data25 = query.property('crtrlabs_paint:data25');",
-          "v.data26 = query.property('crtrlabs_paint:data26');",
-          "v.data27 = query.property('crtrlabs_paint:data27');",
-          "v.data28 = query.property('crtrlabs_paint:data28');",
-          "v.data29 = query.property('crtrlabs_paint:data29');",
-          "v.data30 = query.property('crtrlabs_paint:data30');",
-          "v.data31 = query.property('crtrlabs_paint:data31');",
           "v.yaw_diff = math.abs(math.abs(query.rotation_to_camera(1) - query.camera_rotation(1)) - 180);",
           "v.pitch_diff = math.abs(math.abs(query.rotation_to_camera(0) - query.camera_rotation(0)) - 180);",
           "v.distance_scale = math.clamp(1 - (query.distance_from_camera - 16) / 16, 0, 1);",
           "v.rotation_to_camera_0 = -Math.atan2(-q.distance_from_camera * Math.sin(q.rotation_to_camera(0)) - 1, q.distance_from_camera * Math.cos(q.rotation_to_camera(0)));",
           "v.look_at_entity = Math.abs(Math.abs(q.rotation_to_camera(1) - q.camera_rotation(1)) - 180) < (720 / q.distance_from_camera) && Math.abs(v.rotation_to_camera_0 + q.camera_rotation(0)) < (720 / q.distance_from_camera);",
-          "v.is_facing_camera = v.look_at_entity && v.distance_scale > 0;",
-          "v.leaf_palette_idx_0 = math.floor(math.mod(math.floor(v.data0 / 32768), 32));",
-          "v.leaf_palette_idx_1 = math.floor(math.mod(math.floor(v.data1 / 32768), 32));",
-          "v.leaf_palette_idx_2 = math.floor(math.mod(math.floor(v.data2 / 32768), 32));",
-          "v.leaf_palette_idx_3 = math.floor(math.mod(math.floor(v.data3 / 32768), 32));",
-          "v.leaf_palette_idx_4 = math.floor(math.mod(math.floor(v.data4 / 32768), 32));",
-          "v.leaf_palette_idx_5 = math.floor(math.mod(math.floor(v.data5 / 32768), 32));",
-          "v.leaf_palette_idx_6 = math.floor(math.mod(math.floor(v.data6 / 32768), 32));",
-          "v.leaf_palette_idx_7 = math.floor(math.mod(math.floor(v.data7 / 32768), 32));",
-          "v.leaf_palette_idx_8 = math.floor(math.mod(math.floor(v.data8 / 32768), 32));",
-          "v.leaf_palette_idx_9 = math.floor(math.mod(math.floor(v.data9 / 32768), 32));",
-          "v.leaf_palette_idx_10 = math.floor(math.mod(math.floor(v.data10 / 32768), 32));",
-          "v.leaf_palette_idx_11 = math.floor(math.mod(math.floor(v.data11 / 32768), 32));",
-          "v.leaf_palette_idx_12 = math.floor(math.mod(math.floor(v.data12 / 32768), 32));",
-          "v.leaf_palette_idx_13 = math.floor(math.mod(math.floor(v.data13 / 32768), 32));",
-          "v.leaf_palette_idx_14 = math.floor(math.mod(math.floor(v.data14 / 32768), 32));",
-          "v.leaf_palette_idx_15 = math.floor(math.mod(math.floor(v.data15 / 32768), 32));",
-          "v.leaf_palette_idx_16 = math.floor(math.mod(math.floor(v.data16 / 32768), 32));",
-          "v.leaf_palette_idx_17 = math.floor(math.mod(math.floor(v.data17 / 32768), 32));",
-          "v.leaf_palette_idx_18 = math.floor(math.mod(math.floor(v.data18 / 32768), 32));",
-          "v.leaf_palette_idx_19 = math.floor(math.mod(math.floor(v.data19 / 32768), 32));",
-          "v.leaf_palette_idx_20 = math.floor(math.mod(math.floor(v.data20 / 1), 32));",
-          "v.leaf_palette_idx_21 = math.floor(math.mod(math.floor(v.data20 / 32), 32));",
-          "v.leaf_palette_idx_22 = math.floor(math.mod(math.floor(v.data20 / 1024), 32));",
-          "v.leaf_palette_idx_23 = math.floor(math.mod(math.floor(v.data20 / 32768), 32));",
-          "v.leaf_palette_idx_24 = math.floor(math.mod(math.floor(v.data20 / 1048576), 16)) + math.floor(math.mod(v.data21, 2)) * 16;",
-          "v.leaf_palette_idx_25 = math.floor(math.mod(math.floor(v.data21 / 2), 32));",
-          "v.leaf_palette_idx_26 = math.floor(math.mod(math.floor(v.data21 / 64), 32));",
-          "v.leaf_palette_idx_27 = math.floor(math.mod(math.floor(v.data21 / 2048), 32));",
-          "v.leaf_palette_idx_28 = math.floor(math.mod(math.floor(v.data21 / 65536), 32));",
-          "v.leaf_palette_idx_29 = math.floor(math.mod(math.floor(v.data21 / 2097152), 8)) + math.floor(math.mod(v.data22, 4)) * 8;",
-          "v.leaf_palette_idx_30 = math.floor(math.mod(math.floor(v.data22 / 4), 32));",
-          "v.leaf_palette_idx_31 = math.floor(math.mod(math.floor(v.data22 / 128), 32));",
-          "v.leaf_palette_idx_32 = math.floor(math.mod(math.floor(v.data22 / 4096), 32));",
-          "v.leaf_palette_idx_33 = math.floor(math.mod(math.floor(v.data22 / 131072), 32));",
-          "v.leaf_palette_idx_34 = math.floor(math.mod(math.floor(v.data22 / 4194304), 4)) + math.floor(math.mod(v.data23, 8)) * 4;",
-          "v.leaf_palette_idx_35 = math.floor(math.mod(math.floor(v.data23 / 8), 32));",
-          "v.leaf_palette_idx_36 = math.floor(math.mod(math.floor(v.data23 / 256), 32));",
-          "v.leaf_palette_idx_37 = math.floor(math.mod(math.floor(v.data23 / 8192), 32));",
-          "v.leaf_palette_idx_38 = math.floor(math.mod(math.floor(v.data23 / 262144), 32));",
-          "v.leaf_palette_idx_39 = math.floor(math.mod(math.floor(v.data23 / 8388608), 2)) + math.floor(math.mod(v.data24, 16)) * 2;",
-          "v.leaf_palette_idx_40 = math.floor(math.mod(math.floor(v.data24 / 16), 32));",
-          "v.leaf_palette_idx_41 = math.floor(math.mod(math.floor(v.data24 / 512), 32));",
-          "v.leaf_palette_idx_42 = math.floor(math.mod(math.floor(v.data24 / 16384), 32));",
-          "v.leaf_palette_idx_43 = math.floor(math.mod(math.floor(v.data24 / 524288), 32));",
-          "v.leaf_palette_idx_44 = math.floor(math.mod(math.floor(v.data25 / 1), 32));",
-          "v.leaf_palette_idx_45 = math.floor(math.mod(math.floor(v.data25 / 32), 32));",
-          "v.leaf_palette_idx_46 = math.floor(math.mod(math.floor(v.data25 / 1024), 32));",
-          "v.leaf_palette_idx_47 = math.floor(math.mod(math.floor(v.data25 / 32768), 32));",
-          "v.leaf_palette_idx_48 = math.floor(math.mod(math.floor(v.data25 / 1048576), 16)) + math.floor(math.mod(v.data26, 2)) * 16;",
-          "v.leaf_palette_idx_49 = math.floor(math.mod(math.floor(v.data26 / 2), 32));",
-          "v.leaf_palette_idx_50 = math.floor(math.mod(math.floor(v.data26 / 64), 32));",
-          "v.leaf_palette_idx_51 = math.floor(math.mod(math.floor(v.data26 / 2048), 32));",
-          "v.leaf_palette_idx_52 = math.floor(math.mod(math.floor(v.data26 / 65536), 32));",
-          "v.leaf_palette_idx_53 = math.floor(math.mod(math.floor(v.data26 / 2097152), 8)) + math.floor(math.mod(v.data27, 4)) * 8;",
-          "v.leaf_palette_idx_54 = math.floor(math.mod(math.floor(v.data27 / 4), 32));",
-          "v.leaf_palette_idx_55 = math.floor(math.mod(math.floor(v.data27 / 128), 32));",
-          "v.leaf_palette_idx_56 = math.floor(math.mod(math.floor(v.data27 / 4096), 32));",
-          "v.leaf_palette_idx_57 = math.floor(math.mod(math.floor(v.data27 / 131072), 32));",
-          "v.leaf_palette_idx_58 = math.floor(math.mod(math.floor(v.data27 / 4194304), 4)) + math.floor(math.mod(v.data28, 8)) * 4;",
-          "v.leaf_palette_idx_59 = math.floor(math.mod(math.floor(v.data28 / 8), 32));",
-          "v.leaf_palette_idx_60 = math.floor(math.mod(math.floor(v.data28 / 256), 32));",
-          "v.leaf_palette_idx_61 = math.floor(math.mod(math.floor(v.data28 / 8192), 32));",
-          "v.leaf_palette_idx_62 = math.floor(math.mod(math.floor(v.data28 / 262144), 32));",
-          "v.leaf_palette_idx_63 = math.floor(math.mod(math.floor(v.data28 / 8388608), 2)) + math.floor(math.mod(v.data29, 16)) * 2;",
-          "v.palette_count = math.floor(math.mod(math.floor(v.data29 / 16), 32));",
-          "v.rotation_x = math.floor(math.mod(math.floor(v.data29 / 512), 16));",
-          "v.rotation_y = math.floor(math.mod(math.floor(v.data29 / 8192), 16));",
-          "v.rotation_x_degrees = v.rotation_x * 22.5;",
-          "v.rotation_y_degrees = v.rotation_y * 22.5;"
+          "v.is_facing_camera = v.look_at_entity && v.distance_scale > 0;"
         ],
         "animate": [
           "rotate"
@@ -131,64 +184,64 @@
       },
       "render_controllers": [
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.0": "v.is_facing_camera && v.palette_count > 0"
+          "controller.render.crtrlabs_paint.painting_rot.tile.0": "v.is_facing_camera && v.pc > 0"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.1": "v.is_facing_camera && v.palette_count > 1"
+          "controller.render.crtrlabs_paint.painting_rot.tile.1": "v.is_facing_camera && v.pc > 1"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.2": "v.is_facing_camera && v.palette_count > 2"
+          "controller.render.crtrlabs_paint.painting_rot.tile.2": "v.is_facing_camera && v.pc > 2"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.3": "v.is_facing_camera && v.palette_count > 3"
+          "controller.render.crtrlabs_paint.painting_rot.tile.3": "v.is_facing_camera && v.pc > 3"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.4": "v.is_facing_camera && v.palette_count > 4"
+          "controller.render.crtrlabs_paint.painting_rot.tile.4": "v.is_facing_camera && v.pc > 4"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.5": "v.is_facing_camera && v.palette_count > 5"
+          "controller.render.crtrlabs_paint.painting_rot.tile.5": "v.is_facing_camera && v.pc > 5"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.6": "v.is_facing_camera && v.palette_count > 6"
+          "controller.render.crtrlabs_paint.painting_rot.tile.6": "v.is_facing_camera && v.pc > 6"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.7": "v.is_facing_camera && v.palette_count > 7"
+          "controller.render.crtrlabs_paint.painting_rot.tile.7": "v.is_facing_camera && v.pc > 7"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.8": "v.is_facing_camera && v.palette_count > 8"
+          "controller.render.crtrlabs_paint.painting_rot.tile.8": "v.is_facing_camera && v.pc > 8"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.9": "v.is_facing_camera && v.palette_count > 9"
+          "controller.render.crtrlabs_paint.painting_rot.tile.9": "v.is_facing_camera && v.pc > 9"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.10": "v.is_facing_camera && v.palette_count > 10"
+          "controller.render.crtrlabs_paint.painting_rot.tile.10": "v.is_facing_camera && v.pc > 10"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.11": "v.is_facing_camera && v.palette_count > 11"
+          "controller.render.crtrlabs_paint.painting_rot.tile.11": "v.is_facing_camera && v.pc > 11"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.12": "v.is_facing_camera && v.palette_count > 12"
+          "controller.render.crtrlabs_paint.painting_rot.tile.12": "v.is_facing_camera && v.pc > 12"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.13": "v.is_facing_camera && v.palette_count > 13"
+          "controller.render.crtrlabs_paint.painting_rot.tile.13": "v.is_facing_camera && v.pc > 13"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.14": "v.is_facing_camera && v.palette_count > 14"
+          "controller.render.crtrlabs_paint.painting_rot.tile.14": "v.is_facing_camera && v.pc > 14"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.15": "v.is_facing_camera && v.palette_count > 15"
+          "controller.render.crtrlabs_paint.painting_rot.tile.15": "v.is_facing_camera && v.pc > 15"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.16": "v.is_facing_camera && v.palette_count > 16"
+          "controller.render.crtrlabs_paint.painting_rot.tile.16": "v.is_facing_camera && v.pc > 16"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.17": "v.is_facing_camera && v.palette_count > 17"
+          "controller.render.crtrlabs_paint.painting_rot.tile.17": "v.is_facing_camera && v.pc > 17"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.18": "v.is_facing_camera && v.palette_count > 18"
+          "controller.render.crtrlabs_paint.painting_rot.tile.18": "v.is_facing_camera && v.pc > 18"
         },
         {
-          "controller.render.crtrlabs_paint.painting_rot.tile.19": "v.is_facing_camera && v.palette_count > 19"
+          "controller.render.crtrlabs_paint.painting_rot.tile.19": "v.is_facing_camera && v.pc > 19"
         }
       ]
     }

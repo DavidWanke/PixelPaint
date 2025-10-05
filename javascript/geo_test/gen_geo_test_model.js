@@ -27,8 +27,8 @@ function generateTestModelGeometry() {
 
     const bones = geometry["minecraft:geometry"][0].bones;
 
-    // Add 9000 bones, each with one cube spread across a 128×128 grid
-    for (let i = 0; i < 9000; i++) {
+    // Add 100 bones, each with one cube spread across a 128×128 grid
+    for (let i = 0; i < 100; i++) {
         const gridX = i % 128;
         const gridZ = Math.floor(i / 128);
 

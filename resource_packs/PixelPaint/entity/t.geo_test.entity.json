@@ -9,6 +9,9 @@
       "textures": {
         "default": "textures/crtrlabs/paint/entity/painting/t_tile_atlas"
       },
+      "animations": {
+        "move": "animation.crtrlabs_paint.geo_test.move"
+      },
       "geometry": {
         "default": "geometry.crtrlabs_paint.geo_test"
       },

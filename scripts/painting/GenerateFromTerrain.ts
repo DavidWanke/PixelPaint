@@ -25,12 +25,12 @@ export function blockTypeIdToColor(typeId: string): number {
 }
 
 /**
- * Generate a 64x64 color grid from terrain blocks around a position
- * Samples the topmost blocks in a 64x64 area and converts their typeIds to colors using hash
+ * Generate a 96x64 color grid from terrain blocks around a position
+ * Samples the topmost blocks in a 96x64 area and converts their typeIds to colors using hash
  * @param dimension The dimension to sample from
  * @param centerX Center X coordinate
  * @param centerZ Center Z coordinate
- * @returns 64x64 grid of color indices (0-15)
+ * @returns 96x64 grid of color indices (0-15)
  */
 export function generateFromTerrain(
     dimension: Dimension,
@@ -40,11 +40,11 @@ export function generateFromTerrain(
     const grid: number[][] = [];
     const TRANSPARENT = 16;
 
-    // Sample 64x64 blocks around center (offset by -32 to center the grid)
+    // Sample 96x64 blocks around center (offset by -48/-32 to center the grid)
     for (let offsetZ = 0; offsetZ < 64; offsetZ++) {
         const row: number[] = [];
-        for (let offsetX = 0; offsetX < 64; offsetX++) {
-            const worldX = Math.floor(centerX - 32 + offsetX);
+        for (let offsetX = 0; offsetX < 96; offsetX++) {
+            const worldX = Math.floor(centerX - 48 + offsetX);
             const worldZ = Math.floor(centerZ - 32 + offsetZ);
 
             try {
@@ -83,9 +83,9 @@ export function generateFromTerrain(
 }
 
 /**
- * Generate a 64x64 color grid from terrain around a player's position
+ * Generate a 96x64 color grid from terrain around a player's position
  * @param player The player to sample around
- * @returns 64x64 grid of color indices (0-15)
+ * @returns 96x64 grid of color indices (0-15)
  */
 export function generateFromPlayerPosition(player: Player): number[][] {
     const location = player.location;

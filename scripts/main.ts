@@ -1,6 +1,5 @@
 import { world, Entity, system } from "@minecraft/server";
 import { globalEventManager, EventProcessor } from "./utils/EventManager";
-import { TileDataSystem } from "./painting/TileDataSystem";
 import { DistanceOptimizationSystem } from "./painting/DistanceOptimizationSystem";
 import { Time } from "./utils/Time";
 import { PaintingItemComponent } from "./items/Painting";
@@ -47,50 +46,8 @@ function gameTick() {
 
 
 class GeneralEvents {
-  @EventProcessor<Entity>("S_EVENT(CHANGE_PAINTING_CHECKERBOARD)")
-  static changePaintingToCheckerboard(player: Entity) {
-    const dimension = player.dimension;
-    const grid = TileDataSystem.generateTestCheckerboard();
-    dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
-      world.sendMessage(`Changing painting ${ent.id} to checkerboard with LOD optimization`);
+  
 
-      // Get or create optimizer
-      const optimizer = DistanceOptimizationSystem.fromEntity(ent);
-    
-      // Set image (generates all LOD levels)
-      optimizer?.setImage(grid);
-    });
-  }
-
-  @EventProcessor<Entity>("S_EVENT(CHANGE_PAINTING_GRADIENT)")
-  static changePaintingToGradient(player: Entity) {
-    const dimension = player.dimension;
-    const grid = TileDataSystem.generateTestGradient();
-    dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
-      world.sendMessage(`Changing painting ${ent.id} to gradient with LOD optimization`);
-
-      // Get or create optimizer
-      const optimizer = DistanceOptimizationSystem.fromEntity(ent);
-
-      // Set image (generates all LOD levels)
-      optimizer?.setImage(grid);
-    });
-  }
-
-  @EventProcessor<Entity>("crtrlabs_paint:paint_8x8")
-  static changePaintingTo8x8(player: Entity) {
-    const dimension = player.dimension;
-    const grid = TileDataSystem.generateTest8x8();
-    dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
-      world.sendMessage(`Changing painting ${ent.id} to 8x8 test pattern with LOD optimization`);
-
-      // Get or create optimizer
-      const optimizer = DistanceOptimizationSystem.fromEntity(ent);
-
-      // Set image (generates all LOD levels)
-      optimizer?.setImage(grid);
-    });
-  }
 
   @EventProcessor<Entity>("crtrlabs_paint:save_props")
   static saveDynamicProperties(player: Entity) {
@@ -102,6 +59,17 @@ class GeneralEvents {
   static readDynamicProperties(player: Entity) {
     world.sendMessage(`§e[Test] Starting dynamic properties validation test...`);
     stressTestValidate(10000, 100);
+    world.clearDynamicProperties();
+  }
+
+  @EventProcessor<Entity>("crtrlabs_paint:playAnimation")
+  static playAnimation(player: Entity) {
+    world.sendMessage(`§e[Test] Starting animation playback test...`);
+    player.dimension.getEntities({ type: "crtrlabs_paint:geo_test" }).forEach((ent) => {
+      // Generate 200 variables
+      const variables = Array.from({ length: 200 }, (_, i) => `v.test_expression${i}=${i}`).join(';');
+      ent.playAnimation("animation.crtrlabs_paint.geo_test.move", {stopExpression: variables + ';'})
+    });
   }
 }
 
