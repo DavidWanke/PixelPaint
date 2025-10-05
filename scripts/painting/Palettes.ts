@@ -27,7 +27,7 @@ export const MINECRAFT_PALETTE: Palette = {
         [87, 132, 62],   // 11: green
         [180, 51, 51],   // 12: red
         [35, 37, 146],   // 13: blue
-        [131, 84, 50],   // 14: purple
+        [128, 63, 178],  // 14: purple
         [0, 0, 0],       // 15: black
         [0, 0, 0]        // 16: transparent
     ]

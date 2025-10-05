@@ -76,18 +76,43 @@ function generatePaletteIndexScript() {
 }
 
 /**
- * Generate palette_count extraction from data29 (v2.0 - 20 tiles)
- * palette_count is packed in data29 at bits 20-24 (5 bits for values 1-20)
+ * Generate palette_count extraction from data29 (v2.2 - 20 tiles + global rotations)
+ * palette_count is packed in data29 at bits 4-8 (5 bits for values 1-20)
  * Uses cached v.data29 variable
  * @returns {string} Molang statement to extract palette_count
  */
 function generatePaletteCountScript() {
-    // data29 layout:
-    // bits 0-19: packed palette indices (end of bitstream)
-    // bits 20-24: palette_count (5 bits, values 1-20)
+    // data29 layout (v2.2):
+    // bits 0-3:   packed palette indices (end of bitstream, 4 bits)
+    // bits 4-8:   palette_count (5 bits, values 1-20)
+    // bits 9-12:  rotation_x (4 bits, 0-15)
+    // bits 13-16: rotation_y (4 bits, 0-15)
 
-    // Divide by 1048576 (2^20) to shift right 20 bits, then mod 32 (2^5) to extract 5 bits
-    return `v.palette_count = math.floor(math.mod(math.floor(v.data29 / 1048576), 32));`;
+    // Divide by 16 (2^4) to shift right 4 bits, then mod 32 (2^5) to extract 5 bits
+    return `v.palette_count = math.floor(math.mod(math.floor(v.data29 / 16), 32));`;
+}
+
+/**
+ * Generate global rotation extraction from data29 (v2.2)
+ * rotation_x and rotation_y are packed in data29 at bits 9-16
+ * Each rotation is 4 bits (0-15) representing 0° to 337.5° in 22.5° steps
+ * Uses cached v.data29 variable
+ * @returns {string[]} Array of Molang statements to extract rotation_x and rotation_y
+ */
+function generateGlobalRotationScript() {
+    return [
+        // Extract rotation_x from bits 9-12 (4 bits)
+        // Divide by 512 (2^9) to shift right 9 bits, then mod 16 (2^4) to extract 4 bits
+        `v.rotation_x = math.floor(math.mod(math.floor(v.data29 / 512), 16));`,
+
+        // Extract rotation_y from bits 13-16 (4 bits)
+        // Divide by 8192 (2^13) to shift right 13 bits, then mod 16 (2^4) to extract 4 bits
+        `v.rotation_y = math.floor(math.mod(math.floor(v.data29 / 8192), 16));`,
+
+        // Convert to degrees (0-15 → 0° to 337.5° in 22.5° steps)
+        `v.rotation_x_degrees = v.rotation_x * 22.5;`,
+        `v.rotation_y_degrees = v.rotation_y * 22.5;`
+    ];
 }
 
 /**
@@ -113,11 +138,11 @@ function generateCameraFacingScript() {
 }
 
 /**
- * Generate the complete painting_rot entity JSON (v2.0 - 20 tiles)
+ * Generate the complete painting_rot entity JSON (v2.2 - 20 tiles + global rotations)
  * @returns {object} Complete entity structure
  */
 function generatePaintingRotEntity() {
-    console.log('🎨 Generating painting_rot entity (v2.0 - 20 tiles) with optimized palette indices...');
+    console.log('🎨 Generating painting_rot entity (v2.2 - 20 tiles + global rotations) with optimized palette indices...');
 
     // Generate data property caching (FIRST - cache all 32 data properties)
     const dataPropertyCache = generateDataPropertyCacheScript();
@@ -131,12 +156,16 @@ function generatePaintingRotEntity() {
     // Generate palette_count extraction from data29 (uses cached v.data29)
     const paletteCountScript = generatePaletteCountScript();
 
+    // Generate global rotation extraction from data29 (uses cached v.data29)
+    const globalRotationScript = generateGlobalRotationScript();
+
     // Combine all initialize statements
     const initializeScript = [
         ...dataPropertyCache,
         ...cameraFacingScript,
         ...paletteIndexScript,
-        paletteCountScript
+        paletteCountScript,
+        ...globalRotationScript
     ];
 
     const entity = {
@@ -176,7 +205,8 @@ function generatePaintingRotEntity() {
     console.log(`💾 Cached ${dataPropertyCache.length} data properties (v.data0-v.data31)`);
     console.log(`👁️  Added camera-facing detection (${cameraFacingScript.length} statements - FOV + distance scale 32-48 blocks)`);
     console.log(`🧮 Pre-calculated ${paletteIndexScript.length} leaf palette indices (5-bit extraction, using cached v.data)`);
-    console.log(`📊 Extracted palette_count from data29 bits 20-24 (1 statement, using cached v.data29)`);
+    console.log(`📊 Extracted palette_count from data29 bits 4-8 (1 statement, using cached v.data29)`);
+    console.log(`🔄 Extracted global rotations from data29 bits 9-16 (${globalRotationScript.length} statements: rotation_x, rotation_y, degrees conversion)`);
     console.log(`🎭 Added 20 conditional render controllers (gated by v.is_facing_camera && v.palette_count)`);
     console.log(`🔄 Added rotation animation reference`);
     console.log(`✅ Total pre-animation statements: ${initializeScript.length}`);
@@ -207,15 +237,15 @@ function writeEntityFile(outputPath = null) {
 
     console.log(`🎯 Entity file saved: ${outputPath}`);
     console.log(`📝 Namespace: ${NAMESPACE}`);
-    console.log(`🧮 Optimized entity: ${entity["minecraft:client_entity"].description.scripts.pre_animation.length} pre-animation statements (32 data cache + camera-facing + 64 palette + 1 palette_count)`);
+    console.log(`🧮 Optimized entity: ${entity["minecraft:client_entity"].description.scripts.pre_animation.length} pre-animation statements (32 data cache + camera-facing + 64 palette + 1 palette_count + 4 global rotations)`);
 }
 
 /**
- * Print information about the generated entity (v2.0 - 20 tiles)
+ * Print information about the generated entity (v2.2 - 20 tiles + global rotations)
  */
 function printEntityInfo() {
-    console.log('\n📚 ENTITY GENERATION INFO (painting_rot v2.0 - 20 tiles):');
-    console.log('========================================================');
+    console.log('\n📚 ENTITY GENERATION INFO (painting_rot v2.2 - 20 tiles + global rotations):');
+    console.log('========================================================================');
 
     console.log('\n🧮 OPTIMIZED ENTITY DESIGN:');
     console.log('Data property caching for maximum performance:');
@@ -233,10 +263,17 @@ function printEntityInfo() {
     console.log('  • Eliminates 1280+ repeated calculations per frame (64 leaves × 20 RCs)');
 
     console.log('\n📊 PALETTE COUNT:');
-    console.log('  • v.palette_count extracted from data29 (bits 20-24)');
+    console.log('  • v.palette_count extracted from data29 (bits 4-8)');
     console.log('  • 5-bit value supporting 1-20 palette slots (upgraded from 1-15)');
     console.log('  • Used to gate render controllers (only active slots render)');
     console.log('  • Saves performance when fewer than 20 palette slots used');
+
+    console.log('\n🔄 GLOBAL ROTATIONS (v2.2):');
+    console.log('  • v.rotation_x extracted from data29 (bits 9-12)');
+    console.log('  • v.rotation_y extracted from data29 (bits 13-16)');
+    console.log('  • 4 bits each: 0-15 representing 0° to 337.5° in 22.5° steps');
+    console.log('  • v.rotation_x_degrees and v.rotation_y_degrees pre-calculated (* 22.5)');
+    console.log('  • Applied to root bone for global entity rotation');
 
     console.log('\n🔄 ROTATION SYSTEM:');
     console.log('  • Rotations extracted directly in animation (no caching)');
@@ -259,16 +296,20 @@ function printEntityInfo() {
     console.log(`  • Animation: animation.${NAMESPACE}.painting_rot.rotate`);
     console.log('  • Animation extracts rotations directly from data0-31 properties');
 
-    console.log('\n🔗 PROPERTY SYSTEM (v2.0):');
+    console.log('\n🔗 PROPERTY SYSTEM (v2.2):');
     console.log('Entity reads these properties from behavior:');
     console.log('  • data0-data19:  Atlas + palette_idx + 2 rotations each (20 floats)');
-    console.log('  • data20-data29: Remaining 44 palette indices (5-bit) + palette_count (10 floats)');
+    console.log('  • data20-data29: Remaining 44 palette indices (5-bit) + palette_count + global rotations (10 floats)');
     console.log('  • data30-data31: Remaining 24 rotations (2 floats)');
     console.log('  Total: 32 floats exactly!');
 
-    console.log('\n📦 DATA29 PACKING:');
-    console.log('  • Bits 0-19:  End of palette index bitstream');
-    console.log('  • Bits 20-24: palette_count (5 bits, values 1-20)');
+    console.log('\n📦 DATA29 PACKING (v2.2):');
+    console.log('  • Bits 0-3:   End of palette index bitstream (4 bits)');
+    console.log('  • Bits 4-8:   palette_count (5 bits, values 1-20)');
+    console.log('  • Bits 9-12:  rotation_x (4 bits, 0-15)');
+    console.log('  • Bits 13-16: rotation_y (4 bits, 0-15)');
+    console.log('  • Bits 17-23: SPARE (7 bits remaining)');
+    console.log('  Total bits used: 761/768 (99% utilization)');
 }
 
 // Export functions for use as module
@@ -277,6 +318,7 @@ module.exports = {
     generateDataPropertyCacheScript,
     generatePaletteIndexScript,
     generatePaletteCountScript,
+    generateGlobalRotationScript,
     writeEntityFile,
     printEntityInfo
 };

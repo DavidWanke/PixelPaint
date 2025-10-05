@@ -27,7 +27,7 @@ interface PalettePack {
 }
 
 
-export class PaintingDataSystem extends EntitySystem {
+export class TileDataSystem extends EntitySystem {
 
     constructor(entity: Entity) {
         super(entity);
@@ -139,18 +139,28 @@ export class PaintingDataSystem extends EntitySystem {
     }
 
     /**
-     * Pack 64 palette indices (5-bit each) into 10 floats + palette_count
+     * Pack 64 palette indices (5-bit each) into 10 floats + palette_count + rotations
      * First 20 indices (0-19) are packed into data0-data19
      * Remaining 44 indices (20-63) packed into data20-data29
      * @param indices Array of 64 palette indices (0-19)
      * @param paletteCount Palette count (1-20)
+     * @param rotationX Global X rotation (0-15, representing 0° to 337.5° in 22.5° steps)
+     * @param rotationY Global Y rotation (0-15, representing 0° to 337.5° in 22.5° steps)
      * @returns Array of 10 packed floats (data20-data29)
+     *
+     * data29 bit layout (24 bits):
+     * - Bits 0-3:   Bitstream end (4 bits from 44 indices)
+     * - Bits 4-8:   palette_count (5 bits)
+     * - Bits 9-12:  rotation_x (4 bits)
+     * - Bits 13-16: rotation_y (4 bits)
+     * - Bits 17-23: SPARE (7 bits)
      */
-    private static packIndicesWith5Bits(indices: number[], paletteCount: number): number[] {
+    private static packIndicesWith5Bits(indices: number[], paletteCount: number, rotationX: number = 0, rotationY: number = 0): number[] {
         const idxFloats: number[] = [];
 
         // Pack indices 20-63 (44 total) tightly into bits
         // 44 × 5 bits = 220 bits → 9.17 floats → 10 floats
+        // First 9 floats use full 24 bits (216 bits), last float uses 4 bits
         let bitBuffer = 0;
         let bitsInBuffer = 0;
 
@@ -165,7 +175,7 @@ export class PaintingDataSystem extends EntitySystem {
             }
         }
 
-        // Flush remaining bits if any
+        // Flush remaining bits if any (should be 4 bits for data29)
         if (bitsInBuffer > 0) {
             idxFloats.push(bitBuffer & 0xFFFFFF);
         }
@@ -175,8 +185,14 @@ export class PaintingDataSystem extends EntitySystem {
             idxFloats.push(0);
         }
 
-        // Pack palette_count into data29 (bits 20-24)
-        idxFloats[9] |= (paletteCount & 0x1F) << 20;
+        // Pack palette_count, rotation_x, rotation_y into data29
+        // Bits 0-3: already contain bitstream data
+        // Bits 4-8: palette_count (5 bits)
+        // Bits 9-12: rotation_x (4 bits)
+        // Bits 13-16: rotation_y (4 bits)
+        idxFloats[9] |= (paletteCount & 0x1F) << 4;
+        idxFloats[9] |= (rotationX & 0xF) << 9;
+        idxFloats[9] |= (rotationY & 0xF) << 13;
 
         return idxFloats; // Length 10
     }
@@ -234,8 +250,10 @@ export class PaintingDataSystem extends EntitySystem {
     /**
      * Build palette with rotation optimization from 64 leaves (v2.0 - 20 tiles)
      * Returns all 32 packed data floats (data0-data31)
+     * @param rotationX Global X rotation (0-15, representing 0° to 337.5° in 22.5° steps)
+     * @param rotationY Global Y rotation (0-15, representing 0° to 337.5° in 22.5° steps)
      */
-    private static buildPaletteWithRotation(leaves: Leaf[]): PalettePack {
+    private static buildPaletteWithRotation(leaves: Leaf[], rotationX: number = 0, rotationY: number = 0): PalettePack {
         // 1) Convert each leaf to canonical form and track rotations
         interface CanonicalLeaf {
             canonicalTileId: number;
@@ -293,12 +311,12 @@ export class PaintingDataSystem extends EntitySystem {
             const leaf = canonicalLeaves[i];
             const idx = indexOf.has(leaf.canonicalTileId) ? indexOf.get(leaf.canonicalTileId)! : 0;
             indices[i] = idx; // 0..19 (5 bits)
-            rotations[i] = leaf.rotation; // 0..3
+            rotations[i] = (4 - leaf.rotation) % 4; // Inverse rotation for CCW application
         }
 
         // 7) Pack all 32 data floats
         const data0to19 = this.packDataFloats(atlasIndices, indices, rotations);
-        const data20to29 = this.packIndicesWith5Bits(indices, used);
+        const data20to29 = this.packIndicesWith5Bits(indices, used, rotationX, rotationY);
         const data30to31 = this.packRotationsOptimized(rotations);
 
         const dataFloats = [...data0to19, ...data20to29, ...data30to31];
@@ -412,25 +430,204 @@ export class PaintingDataSystem extends EntitySystem {
         return grid;
     }
 
+    /**
+     * Generate a 2x2 test grid (32x32 pixels total)
+     * Creates a large painting with 4 distinct colored quadrants
+     * @returns 32x32 grid (will be split into 4 entities of 16x16)
+     */
+    static generateTest2x2(): number[][] {
+        const grid: number[][] = [];
+
+        for (let y = 0; y < 32; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < 32; x++) {
+                let color: number;
+
+                if (y < 16 && x < 16) {
+                    color = ColorName.red;      // Top-left
+                } else if (y < 16 && x >= 16) {
+                    color = ColorName.blue;     // Top-right
+                } else if (y >= 16 && x < 16) {
+                    color = ColorName.green;    // Bottom-left
+                } else {
+                    color = ColorName.yellow;   // Bottom-right
+                }
+
+                row.push(color);
+            }
+            grid.push(row);
+        }
+
+        return grid;
+    }
+
+    /**
+     * Generate a 3x3 test grid (48x48 pixels total)
+     * Creates a large painting with 9 distinct colored sections
+     * @returns 48x48 grid (will be split into 9 entities of 16x16)
+     */
+    static generateTest3x3(): number[][] {
+        const grid: number[][] = [];
+        const colors = [
+            ColorName.red, ColorName.orange, ColorName.yellow,
+            ColorName.green, ColorName.cyan, ColorName.blue,
+            ColorName.purple, ColorName.magenta, ColorName.pink
+        ];
+
+        for (let y = 0; y < 48; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < 48; x++) {
+                const gridY = Math.floor(y / 16);
+                const gridX = Math.floor(x / 16);
+                const colorIndex = gridY * 3 + gridX;
+
+                row.push(colors[colorIndex]);
+            }
+            grid.push(row);
+        }
+
+        return grid;
+    }
+
+    /**
+     * Generate a 3x1 test grid (48x16 pixels total)
+     * Creates a horizontal painting with 3 distinct colored sections
+     * @returns 48x16 grid (will be split into 3 entities of 16x16)
+     */
+    static generateTest3x1(): number[][] {
+        const grid: number[][] = [];
+        const colors = [ColorName.red, ColorName.white, ColorName.blue];
+
+        for (let y = 0; y < 16; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < 48; x++) {
+                const gridX = Math.floor(x / 16);
+                row.push(colors[gridX]);
+            }
+            grid.push(row);
+        }
+
+        return grid;
+    }
+
+    /**
+     * Generate a 16x16 test pattern that uses all 16 colors
+     * Creates a 4x4 grid where each 4x4 block is a solid color (0-15)
+     * @returns 16x16 grid using all 16 colors
+     */
+    static generateSingleTileAllColors(): number[][] {
+        const grid: number[][] = [];
+        const colors = [
+            ColorName.white, ColorName.orange, ColorName.magenta, ColorName.light_blue,
+            ColorName.yellow, ColorName.lime, ColorName.pink, ColorName.gray,
+            ColorName.light_gray, ColorName.cyan, ColorName.brown, ColorName.green,
+            ColorName.red, ColorName.blue, ColorName.purple, ColorName.black
+        ];
+
+        for (let y = 0; y < 16; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < 16; x++) {
+                // Divide into 4x4 grid (16 blocks total)
+                const blockY = Math.floor(y / 4);
+                const blockX = Math.floor(x / 4);
+                const colorIndex = blockY * 4 + blockX;
+                row.push(colors[colorIndex]);
+            }
+            grid.push(row);
+        }
+
+        return grid;
+    }
+
+    /**
+     * Generate a 6x6 test grid (96x96 pixels total)
+     * Each 16x16 tile uses all 16 colors in a 4x4 grid pattern
+     * @returns 96x96 grid (will be split into 36 entities of 16x16)
+     */
+    static generateTest6x6AllColors(): number[][] {
+        // Generate the base 16x16 tile pattern once
+        const baseTile = this.generateSingleTileAllColors();
+
+        // Replicate it 6x6 times to create 96x96 grid
+        const grid: number[][] = [];
+
+        for (let tileY = 0; tileY < 6; tileY++) {
+            for (let pixelY = 0; pixelY < 16; pixelY++) {
+                const row: number[] = [];
+                for (let tileX = 0; tileX < 6; tileX++) {
+                    for (let pixelX = 0; pixelX < 16; pixelX++) {
+                        row.push(baseTile[pixelY][pixelX]);
+                    }
+                }
+                grid.push(row);
+            }
+        }
+
+        return grid;
+    }
+
+    /**
+     * Generate an 8x8 test grid (128x128 pixels total)
+     * Each 16x16 tile uses all 16 colors in a 4x4 grid pattern
+     * @returns 128x128 grid (will be split into 64 entities of 16x16)
+     */
+    static generateTest8x8AllColors(): number[][] {
+        // Generate the base 16x16 tile pattern once
+        const baseTile = this.generateSingleTileAllColors();
+
+        // Replicate it 8x8 times to create 128x128 grid
+        const grid: number[][] = [];
+
+        for (let tileY = 0; tileY < 8; tileY++) {
+            for (let pixelY = 0; pixelY < 16; pixelY++) {
+                const row: number[] = [];
+                for (let tileX = 0; tileX < 8; tileX++) {
+                    for (let pixelX = 0; pixelX < 16; pixelX++) {
+                        row.push(baseTile[pixelY][pixelX]);
+                    }
+                }
+                grid.push(row);
+            }
+        }
+
+        return grid;
+    }
+
     // ========== Main Image Setter ==========
 
     /**
-     * Change the painting image by setting all 32 data properties (v2.0)
+     * Change the painting image by setting all 32 data properties (v2.2)
      * @param colorGrid 16x16 grid of color indices (0-16)
      * @param paletteIndex Palette index to use (default: 0 = MINECRAFT_PALETTE)
+     * @param rotationXDegrees Global X rotation in degrees (0-360, snapped to 22.5° increments, default: 45°)
+     * @param rotationYDegrees Global Y rotation in degrees (0-360, snapped to 22.5° increments, default: 45°)
      */
-    changeImage(colorGrid: number[][], paletteIndex: number = 0): void {
+    changeImage(colorGrid: number[][], paletteIndex: number = 0, rotationXDegrees: number = 45, rotationYDegrees: number = 45): void {
         const palette = getPalette(paletteIndex);
+
         // Validate grid dimensions
         if (colorGrid.length !== 16 || colorGrid.some(row => row.length !== 16)) {
             throw new Error("Color grid must be 16x16");
         }
 
-        // Convert to leaves
-        const leaves = PaintingDataSystem.colorGridToLeaves(colorGrid);
+        // Convert degrees to 0-15 values (snap to nearest 22.5° increment)
+        // 22.5° per increment, so divide by 22.5 and round
+        const rotationX = Math.round(rotationXDegrees / 22.5) % 16;
+        const rotationY = Math.round(rotationYDegrees / 22.5) % 16;
 
-        // Build palette with rotation optimization (v2.0 - returns all 32 data floats)
-        const pack = PaintingDataSystem.buildPaletteWithRotation(leaves);
+        // Validate rotation values are within 0-15 after conversion
+        if (rotationX < 0 || rotationX > 15) {
+            throw new Error(`Invalid rotationX calculation: ${rotationX} (from ${rotationXDegrees}°)`);
+        }
+        if (rotationY < 0 || rotationY > 15) {
+            throw new Error(`Invalid rotationY calculation: ${rotationY} (from ${rotationYDegrees}°)`);
+        }
+
+        // Convert to leaves
+        const leaves = TileDataSystem.colorGridToLeaves(colorGrid);
+
+        // Build palette with rotation optimization (v2.2 - returns all 32 data floats)
+        const pack = TileDataSystem.buildPaletteWithRotation(leaves, rotationX, rotationY);
 
         // Set all 32 data properties (data0-data31)
         for (let i = 0; i < 32; i++) {

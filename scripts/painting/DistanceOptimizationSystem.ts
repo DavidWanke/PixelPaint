@@ -1,6 +1,6 @@
 import { Entity, Player, Vector3, world } from "@minecraft/server";
 import { EntitySystem, Loadable, Savable, Dynamic } from "../utils/EntitySystem";
-import { PaintingDataSystem } from "./PaintingDataSystem";
+import { TileDataSystem } from "./TileDataSystem";
 import { Utilities } from "../utils/Utilities";
 import { Vector3D } from "../utils/Vector";
 
@@ -40,7 +40,17 @@ export class DistanceOptimizationSystem extends EntitySystem {
     @Dynamic
     paletteIndex: number = 0; // Palette index used for this painting
 
-    private PaintingDataSystem: PaintingDataSystem;
+    @Loadable
+    @Savable
+    @Dynamic
+    rotationXDegrees: number = 0; // Global X rotation in degrees
+
+    @Loadable
+    @Savable
+    @Dynamic
+    rotationYDegrees: number = 0; // Global Y rotation in degrees
+
+    private PaintingDataSystem: TileDataSystem;
 
     // Distance thresholds (in blocks)
     private static readonly THRESHOLDS = [16, 24, 32]; // LOD 0, 1, 2, 3
@@ -49,7 +59,7 @@ export class DistanceOptimizationSystem extends EntitySystem {
     constructor(entity: Entity) {
         super(entity);
         this.loadFromEntity(entity);
-        this.PaintingDataSystem = new PaintingDataSystem(entity);
+        this.PaintingDataSystem = new TileDataSystem(entity);
     }
 
     static fromEntity(entity: Entity): DistanceOptimizationSystem | null {
@@ -80,10 +90,14 @@ export class DistanceOptimizationSystem extends EntitySystem {
      * Set the image and generate all LOD levels
      * @param grid 16x16 grid of color indices (0-16)
      * @param paletteIndex Palette index to use (default: 0 = MINECRAFT_PALETTE)
+     * @param rotationXDegrees Global X rotation in degrees (0-360, snapped to 22.5° increments, default: 0)
+     * @param rotationYDegrees Global Y rotation in degrees (0-360, snapped to 22.5° increments, default: 0)
      */
-    setImage(grid: number[][], paletteIndex: number = 0): void {
-        // Store palette index for LOD switching
+    setImage(grid: number[][], paletteIndex: number = 0, rotationXDegrees: number = 0, rotationYDegrees: number = 0): void {
+        // Store palette index and rotation for LOD switching
         this.paletteIndex = paletteIndex;
+        this.rotationXDegrees = rotationXDegrees;
+        this.rotationYDegrees = rotationYDegrees;
 
         // Store original as LOD 0
         this.lod0_rle = DistanceOptimizationSystem.encodeRLE(grid);
@@ -162,9 +176,9 @@ export class DistanceOptimizationSystem extends EntitySystem {
 
         if (!rle) return; // No data for this LOD
 
-        // Decode and apply
+        // Decode and apply with rotation
         const grid = DistanceOptimizationSystem.decodeRLE(rle);
-        this.PaintingDataSystem.changeImage(grid, this.paletteIndex);
+        this.PaintingDataSystem.changeImage(grid, this.paletteIndex, this.rotationXDegrees, this.rotationYDegrees);
 
         this.current_lod = level;
         this.saveToEntity(this.entity);

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "crtrlabs_paint:geo_test",
+      "materials": {
+        "default": "crtrlabs_paint_uv_offset"
+      },
+      "textures": {
+        "default": "textures/crtrlabs/paint/entity/painting/t_tile_atlas"
+      },
+      "geometry": {
+        "default": "geometry.crtrlabs_paint.geo_test"
+      },
+      "render_controllers": [
+        "controller.render.crtrlabs_paint.geo_test"
+      ]
+    }
+  }
+}

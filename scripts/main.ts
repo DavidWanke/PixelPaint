@@ -1,9 +1,10 @@
 import { world, Entity, system } from "@minecraft/server";
 import { globalEventManager, EventProcessor } from "./utils/EventManager";
-import { PaintingDataSystem } from "./painting/PaintingDataSystem";
+import { TileDataSystem } from "./painting/TileDataSystem";
 import { DistanceOptimizationSystem } from "./painting/DistanceOptimizationSystem";
 import { Time } from "./utils/Time";
 import { PaintingItemComponent } from "./items/Painting";
+import { stressTestWrite, stressTestValidate } from "./test/TestDynamicProperties";
 
 
 let currentTick = 0;
@@ -49,7 +50,7 @@ class GeneralEvents {
   @EventProcessor<Entity>("S_EVENT(CHANGE_PAINTING_CHECKERBOARD)")
   static changePaintingToCheckerboard(player: Entity) {
     const dimension = player.dimension;
-    const grid = PaintingDataSystem.generateTestCheckerboard();
+    const grid = TileDataSystem.generateTestCheckerboard();
     dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
       world.sendMessage(`Changing painting ${ent.id} to checkerboard with LOD optimization`);
 
@@ -64,7 +65,7 @@ class GeneralEvents {
   @EventProcessor<Entity>("S_EVENT(CHANGE_PAINTING_GRADIENT)")
   static changePaintingToGradient(player: Entity) {
     const dimension = player.dimension;
-    const grid = PaintingDataSystem.generateTestGradient();
+    const grid = TileDataSystem.generateTestGradient();
     dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
       world.sendMessage(`Changing painting ${ent.id} to gradient with LOD optimization`);
 
@@ -79,7 +80,7 @@ class GeneralEvents {
   @EventProcessor<Entity>("crtrlabs_paint:paint_8x8")
   static changePaintingTo8x8(player: Entity) {
     const dimension = player.dimension;
-    const grid = PaintingDataSystem.generateTest8x8();
+    const grid = TileDataSystem.generateTest8x8();
     dimension.getEntities({ type: "crtrlabs_paint:painting_rot" }).forEach((ent) => {
       world.sendMessage(`Changing painting ${ent.id} to 8x8 test pattern with LOD optimization`);
 
@@ -89,6 +90,18 @@ class GeneralEvents {
       // Set image (generates all LOD levels)
       optimizer?.setImage(grid);
     });
+  }
+
+  @EventProcessor<Entity>("crtrlabs_paint:save_props")
+  static saveDynamicProperties(player: Entity) {
+    world.sendMessage(`§e[Test] Starting dynamic properties write test...`);
+    stressTestWrite(10000);
+  }
+
+  @EventProcessor<Entity>("crtrlabs_paint:read_props")
+  static readDynamicProperties(player: Entity) {
+    world.sendMessage(`§e[Test] Starting dynamic properties validation test...`);
+    stressTestValidate(10000, 100);
   }
 }
 

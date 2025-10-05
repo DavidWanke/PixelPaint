@@ -55,7 +55,8 @@ function generatePaintingRotAnimation() {
 
     // Add root bone with distance scale
     bones["root"] = {
-        "scale": "v.distance_scale"
+        "scale": "v.distance_scale",
+        "rotation": ["v.rotation_x_degrees", "v.rotation_y_degrees", 0]
     };
 
     // Generate rotation for all 64 leaves
@@ -65,7 +66,7 @@ function generatePaintingRotAnimation() {
         bones[`l${leafId}`] = {
             "rotation": [
                 0,
-                `${rotationExtraction} * 90`,  // Extract rotation (0-3) and multiply by 90 degrees
+                `${rotationExtraction} * -90`,  // Extract rotation (0-3) and multiply by -90 degrees (CCW)
                 0
             ]
         };

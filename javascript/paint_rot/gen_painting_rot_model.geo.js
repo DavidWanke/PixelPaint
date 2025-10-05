@@ -29,7 +29,7 @@ function generatePaintingRotModelGeometry() {
                 "bones": [
                     {
                         "name": "root",
-                        "pivot": [0, 0, 0]
+                        "pivot": [0, 8, 0]
                     }
                 ]
             }

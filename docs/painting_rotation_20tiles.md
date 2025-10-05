@@ -1,6 +1,6 @@
 # Painting System: Technical Documentation
 
-**Version**: 2.1
+**Version**: 2.2
 **Date**: 2025-10-02
 **Status**: Production-Ready
 
@@ -12,7 +12,7 @@ This document provides complete technical documentation for the PixelPaint paint
 
 ### System Architecture
 
-The painting system consists of four interconnected subsystems:
+The painting system consists of five interconnected subsystems:
 
 **1. Canonical Rotation System**
 - Reduces unique tiles from 83,521 to ~25,000-35,000 (60-70% reduction)
@@ -32,7 +32,13 @@ The painting system consists of four interconnected subsystems:
 - Cached variables used by animations, render controllers, and palette extraction
 - Significant performance improvement for rendering pipeline
 
-**4. Distance-Based LOD System**
+**4. Global Rotation System**
+- X and Y axis rotation support for entire painting entity
+- 22.5° increments (16 values per axis, 0-15)
+- 8 bits total storage (4 bits per axis)
+- Applied to root bone via Molang animation
+
+**5. Distance-Based LOD System**
 - 4 detail levels automatically switched based on player distance
 - RLE-encoded storage for each LOD level
 - Thresholds: 0-16 blocks (full), 16-24 (medium), 24-32 (low), 32+ (invisible)
@@ -47,7 +53,8 @@ The painting system consists of four interconnected subsystems:
 | **Property Queries** | 80% reduction via caching system |
 | **Rendering Cost** | Automatic LOD reduces distant painting overhead |
 | **Capacity** | 20 unique canonical tiles per painting |
-| **Bit Utilization** | 98% (753/768 bits used, 15 spare) |
+| **Global Rotations** | X/Y rotation support (22.5° increments) |
+| **Bit Utilization** | 99% (761/768 bits used, 7 spare) |
 
 ---
 
@@ -342,6 +349,105 @@ The model file (`t.painting_rot.geo.json`) defines 64 leaf bones:
 - Each leaf has a 2×2 pixel flat plane (cube with height 0)
 - Pivot point is centered in the leaf for proper rotation
 - All leaves are children of the root bone
+
+---
+
+## Global Rotation System
+
+### Overview
+
+The painting system supports global X and Y axis rotations, allowing the entire painting entity to be rotated in 22.5° increments (16 possible values per axis). This enables precise angular positioning of paintings in the world.
+
+### Rotation Specification
+
+**Rotation Values:**
+- Both `rotation_x` and `rotation_y` use 4-bit values (0-15)
+- Each increment represents 22.5° (360° ÷ 16 = 22.5°)
+- Full rotation cycle: 0° → 22.5° → 45° → ... → 337.5° → 0°
+
+**Rotation Mapping:**
+```
+Value  Degrees
+  0  →    0°
+  1  →   22.5°
+  2  →   45°
+  3  →   67.5°
+  4  →   90°
+  5  →  112.5°
+  6  →  135°
+  7  →  157.5°
+  8  →  180°
+  9  →  202.5°
+ 10  →  225°
+ 11  →  247.5°
+ 12  →  270°
+ 13  →  292.5°
+ 14  →  315°
+ 15  →  337.5°
+```
+
+### Storage
+
+**Location:** data29, bits 9-16
+- Bits 9-12: `rotation_x` (4 bits)
+- Bits 13-16: `rotation_y` (4 bits)
+
+**Packing (TypeScript):**
+```typescript
+// In packIndicesWith5Bits()
+data29 |= (rotationX & 0xF) << 9;   // Bits 9-12
+data29 |= (rotationY & 0xF) << 13;  // Bits 13-16
+```
+
+**Extraction (Molang):**
+```molang
+// In pre_animation script:
+v.rotation_x = math.floor(math.mod(v.data29 / 512, 16));  // 2^9 = 512
+v.rotation_y = math.floor(math.mod(v.data29 / 8192, 16)); // 2^13 = 8192
+
+// Convert to degrees:
+v.rotation_x_degrees = v.rotation_x * 22.5;
+v.rotation_y_degrees = v.rotation_y * 22.5;
+```
+
+### Usage
+
+**Setting Rotation (TypeScript):**
+```typescript
+// Create a painting system instance
+const paintingSystem = new PaintingDataSystem(entity);
+
+// Set image with global rotations
+// rotationX=4 (90°), rotationY=2 (45°)
+paintingSystem.changeImage(colorGrid, 0, 4, 2);
+```
+
+**Applying Rotation (Molang):**
+```molang
+// In entity animation or pre_animation:
+// Apply to root bone rotation
+bone.root.rotation = [v.rotation_x_degrees, v.rotation_y_degrees, 0];
+```
+
+### Common Rotation Values
+
+| Description | rotation_x | rotation_y | Degrees |
+|-------------|-----------|-----------|---------|
+| No rotation | 0 | 0 | (0°, 0°) |
+| 90° on X axis | 4 | 0 | (90°, 0°) |
+| 90° on Y axis | 0 | 4 | (0°, 90°) |
+| 45° diagonal | 2 | 2 | (45°, 45°) |
+| 180° flip | 8 | 0 | (180°, 0°) |
+| Upside down | 8 | 8 | (180°, 180°) |
+
+### Implementation Notes
+
+- Rotations are applied to the root bone of the painting entity
+- X rotation: Pitch (up/down tilt)
+- Y rotation: Yaw (left/right turn)
+- Rotation is independent of per-leaf tile rotations (which use the Z axis)
+- All rotation calculations happen client-side via Molang
+- No server-side overhead beyond storing the 8 bits in data29
 
 ---
 
@@ -660,17 +766,19 @@ static quantizeColors(grid: number[][], targetColors: number): number[][] {
 
 ## Bit Budget Breakdown
 
-### Total Data Requirements (20 tiles)
+### Total Data Requirements (20 tiles + global rotations)
 ```
 20 atlas indices × 15 bits    = 300 bits
 64 palette indices × 5 bits   = 320 bits
-64 rotations × 2 bits         = 128 bits
+64 leaf rotations × 2 bits    = 128 bits
 1 palette_count × 5 bits      =   5 bits
+1 rotation_x × 4 bits         =   4 bits
+1 rotation_y × 4 bits         =   4 bits
 ─────────────────────────────────────────
-Total                         = 753 bits
+Total                         = 761 bits
 
 Available capacity: 32 floats × 24 bits = 768 bits
-Spare bits: 768 - 753 = 15 bits (2% headroom)
+Spare bits: 768 - 761 = 7 bits (1% headroom)
 ```
 
 ---
@@ -687,12 +795,17 @@ data0 through data19 (20 floats) - Palette + Indices + Rotations:
   ├─ Bits 20-21:  rotation_a (2 bits, rotation for leaf N where N=property_index)
   └─ Bits 22-23:  rotation_b (2 bits, rotation for leaf N+20)
 
-data20 through data29 (10 floats) - Remaining Palette Indices:
+data20 through data29 (10 floats) - Remaining Palette Indices + Global Rotations:
   ├─ Tight bitstream packing of 5-bit indices
   ├─ Contains palette indices for leaves 20-63 (44 indices total)
-  ├─ 44 × 5 bits = 220 bits packed across 10 floats
-  ├─ data29 bits 20-24: palette_count (5 bits, value 1-20)
-  └─ Remaining bits: 15 spare bits for future use
+  ├─ 44 × 5 bits = 220 bits packed across 10 floats (first 9 floats full, data29 uses 4 bits)
+  ├─ data29 bit layout (24 bits total):
+  │   ├─ Bits 0-3:   Bitstream end (4 bits from palette indices)
+  │   ├─ Bits 4-8:   palette_count (5 bits, value 1-20)
+  │   ├─ Bits 9-12:  rotation_x (4 bits, 0-15 = 0° to 337.5° in 22.5° steps)
+  │   ├─ Bits 13-16: rotation_y (4 bits, 0-15 = 0° to 337.5° in 22.5° steps)
+  │   └─ Bits 17-23: SPARE (7 bits for future use)
+  └─ Total spare bits remaining: 7 bits
 
 data30 through data31 (2 floats) - Remaining Rotations:
   ├─ data30: rotations 40-51 (12 × 2 bits = 24 bits)
@@ -740,29 +853,46 @@ function packTpFloat(atlasIndex, paletteIdx, rot_a, rot_b) {
 // - Rotation for leaf 20
 ```
 
-### Algorithm 2: Pack Indices with 5 Bits
+### Algorithm 2: Pack Indices with 5 Bits + Global Rotations
 
 ```javascript
-function packIndicesWith5Bits(indices, paletteCount) {
+function packIndicesWith5Bits(indices, paletteCount, rotationX, rotationY) {
     const floats = [];
     let bitBuffer = 0;
     let bitsInBuffer = 0;
 
     // Pack indices 20-63 (44 total)
+    // 44 × 5 bits = 220 bits → 9.17 floats
+    // First 9 floats use full 24 bits (216 bits), last float uses 4 bits
     for (let i = 20; i < 64; i++) {
         bitBuffer |= (indices[i] & 0x1F) << bitsInBuffer;
         bitsInBuffer += 5;
 
-        if (bitsInBuffer >= 24) {
+        while (bitsInBuffer >= 24) {
             floats.push(bitBuffer & 0xFFFFFF);
             bitBuffer >>= 24;
             bitsInBuffer -= 24;
         }
     }
 
-    // Pack palette_count into last float
-    const lastFloat = floats[floats.length - 1];
-    floats[floats.length - 1] = lastFloat | ((paletteCount & 0x1F) << 20);
+    // Flush remaining bits (should be 4 bits for data29)
+    if (bitsInBuffer > 0) {
+        floats.push(bitBuffer & 0xFFFFFF);
+    }
+
+    // Pad to 10 floats
+    while (floats.length < 10) {
+        floats.push(0);
+    }
+
+    // Pack palette_count, rotation_x, rotation_y into data29 (floats[9])
+    // Bits 0-3: already contain bitstream data
+    // Bits 4-8: palette_count (5 bits)
+    // Bits 9-12: rotation_x (4 bits)
+    // Bits 13-16: rotation_y (4 bits)
+    floats[9] |= (paletteCount & 0x1F) << 4;
+    floats[9] |= (rotationX & 0xF) << 9;
+    floats[9] |= (rotationY & 0xF) << 13;
 
     return floats; // Length 10
 }
@@ -840,10 +970,33 @@ rotation_53 = math.floor(math.mod(query.property('crtrlabs_paint:data31') / 4, 4
 ### Extract Palette Count
 
 ```molang
-// From data29, bits 20-24:
-palette_count = math.floor(math.mod(query.property('crtrlabs_paint:data29') / 1048576, 32))
+// From data29, bits 4-8:
+palette_count = math.floor(math.mod(v.data29 / 16, 32))
 
-// 1048576 = 2^20, 32 = 2^5 (for 5-bit value 0-31, actual range 1-20)
+// 16 = 2^4 (shift right 4 bits), 32 = 2^5 (mask 5 bits)
+// Actual range: 1-20
+```
+
+### Extract Global Rotation X
+
+```molang
+// From data29, bits 9-12:
+rotation_x = math.floor(math.mod(v.data29 / 512, 16))
+
+// 512 = 2^9 (shift right 9 bits), 16 = 2^4 (mask 4 bits)
+// Value 0-15 represents 0° to 337.5° in 22.5° steps
+// Convert to degrees: rotation_x_degrees = rotation_x * 22.5
+```
+
+### Extract Global Rotation Y
+
+```molang
+// From data29, bits 13-16:
+rotation_y = math.floor(math.mod(v.data29 / 8192, 16))
+
+// 8192 = 2^13 (shift right 13 bits), 16 = 2^4 (mask 4 bits)
+// Value 0-15 represents 0° to 337.5° in 22.5° steps
+// Convert to degrees: rotation_y_degrees = rotation_y * 22.5
 ```
 
 ---
@@ -920,8 +1073,22 @@ rotation_52 = math.floor(math.mod(v.data31, 4))
 
 **Extract Palette Count:**
 ```molang
-// From cached v.data29, bits 20-24:
-palette_count = math.floor(math.mod(v.data29 / 1048576, 32))
+// From cached v.data29, bits 4-8:
+palette_count = math.floor(math.mod(v.data29 / 16, 32))
+```
+
+**Extract Global Rotation X:**
+```molang
+// From cached v.data29, bits 9-12:
+v.rotation_x = math.floor(math.mod(v.data29 / 512, 16));
+v.rotation_x_degrees = v.rotation_x * 22.5;  // Convert to degrees
+```
+
+**Extract Global Rotation Y:**
+```molang
+// From cached v.data29, bits 13-16:
+v.rotation_y = math.floor(math.mod(v.data29 / 8192, 16));
+v.rotation_y_degrees = v.rotation_y * 22.5;  // Convert to degrees
 ```
 
 ### Usage in Different Components
@@ -1008,13 +1175,15 @@ console.assert(maxValue <= 0xFFFFFF, "24-bit safety violated!");
 
 ## Future Expansion
 
-With 15 spare bits remaining in the property budget, potential additions:
+With 7 spare bits remaining in the property budget, potential additions:
 
-1. **Layer flags** (3 bits): Support 8 rendering layers
+1. **Layer flags** (2 bits): Support 4 rendering layers
 2. **Tint color** (3 bits): 8 global tint options
-3. **Animation frame** (4 bits): 16-frame animation support
-4. **Format version** (3 bits): Future format upgrades
+3. **Animation frame** (3 bits): 8-frame animation support
+4. **Format version** (2 bits): 4 format versions
 5. **Mirror/flip flags** (2 bits): Horizontal/vertical mirroring
+
+**Note:** Global X/Y rotations have been implemented (8 bits used from the original 15 spare bits).
 
 ---
 
@@ -1038,13 +1207,14 @@ With 15 spare bits remaining in the property budget, potential additions:
 
 ---
 
-**Implementation Status**: ✅ Complete (v2.1)
+**Implementation Status**: ✅ Complete (v2.2)
 
 ### Completed Features
 - ✅ **Canonical rotation system**: 60-70% atlas reduction via rotational equivalence
 - ✅ **20-tile palette**: Support for 20 unique canonical tiles per painting
 - ✅ **Generic property naming**: data0-data31 with documented bit layouts
 - ✅ **Property caching**: 80% reduction in property query overhead
+- ✅ **Global rotations**: X/Y axis rotation in 22.5° increments
 - ✅ **Distance-based LOD**: 4 automatic quality levels with hysteresis
 - ✅ **TypeScript systems**: PaintingDataSystem + DistanceOptimizationSystem
 - ✅ **JavaScript generators**: Complete resource/behavior pack generation
@@ -1071,3 +1241,4 @@ With 15 spare bits remaining in the property budget, potential additions:
 **Version History**:
 - v2.0 (2025-10-01): 20-tile system with generic data0-data31 properties
 - v2.1 (2025-10-02): Added property caching optimization for 80% performance improvement
+- v2.2 (2025-10-02): Added global X/Y rotation support (22.5° increments, 8 bits total)

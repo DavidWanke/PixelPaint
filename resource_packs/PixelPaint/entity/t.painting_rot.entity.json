@@ -119,7 +119,11 @@
           "v.leaf_palette_idx_61 = math.floor(math.mod(math.floor(v.data28 / 8192), 32));",
           "v.leaf_palette_idx_62 = math.floor(math.mod(math.floor(v.data28 / 262144), 32));",
           "v.leaf_palette_idx_63 = math.floor(math.mod(math.floor(v.data28 / 8388608), 2)) + math.floor(math.mod(v.data29, 16)) * 2;",
-          "v.palette_count = math.floor(math.mod(math.floor(v.data29 / 1048576), 32));"
+          "v.palette_count = math.floor(math.mod(math.floor(v.data29 / 16), 32));",
+          "v.rotation_x = math.floor(math.mod(math.floor(v.data29 / 512), 16));",
+          "v.rotation_y = math.floor(math.mod(math.floor(v.data29 / 8192), 16));",
+          "v.rotation_x_degrees = v.rotation_x * 22.5;",
+          "v.rotation_y_degrees = v.rotation_y * 22.5;"
         ],
         "animate": [
           "rotate"
